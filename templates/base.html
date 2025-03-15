@@ -1,20 +1,23 @@
-<!DOCTYPE html>
 {% load static %}
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
             XChange
         {% endblock %}
     </title>
+
+    <link rel="icon" href="{% static 'images/logo/favicon_io/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body class="auth-page">
     <header>
         <nav class="nav-bar">
-            <div class="name-web">Xchange</div>
+            <div class="name-web">XChange</div>
             <ul class="nav-links">
                 <li class="web-urls">
                     <a href="{% url 'home' %}">Home</a>
@@ -29,13 +32,17 @@
         </nav>
     </header>
 
-
     <main>
-        {% block content %}
-        {% endblock %}
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
+
     <footer>
-        Thanks for visiting our website.
+        <div class="footer-content">
+            Thanks for visiting our website.
+        </div>
     </footer>
 </body>
 </html>
