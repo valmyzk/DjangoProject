@@ -6,15 +6,15 @@
 
 2. **Clone the repository**
 ```bash
-git clone https://github.com/your-username/your-project.git
-cd your-project
+git clone https://github.com/valmyzk/DjangoProject.git
+cd DjangoProject
 ```
 
 3. **(Optional) Create a `.env` file** to override any environment variables (e.g., `SECRET_KEY`, `DEBUG`, etc.)
 
 4. **Build and start the application**
 ```bash
-docker-compose up --build
+docker-compose up
 ```
 
 5. **Access the application**
@@ -25,7 +25,6 @@ docker-compose up --build
 ### 🛠 Development Notes
 
 - The app runs on Django's development server by default.
-- All changes in the code will automatically be reflected inside the container (thanks to volume mounting in `docker-compose.yml`).
 - You can run admin tasks like migrations from inside the container:
 ```bash
 docker-compose exec web python manage.py migrate
