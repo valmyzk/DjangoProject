@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import *
+
+admin.site.register(Wallet)
+admin.site.register(Asset)
+admin.site.register(Transaction)
+admin.site.register(Holding)

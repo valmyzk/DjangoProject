@@ -1,12 +1,158 @@
-{% extends 'base.html' %}
-
-{% block title %}
-    Home
-{% endblock %}
-
-{% block content %}
-    <div class="home-page">
-            <h1>Home Page</h1>
-            <p>Welcome to XChange!</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XChange - Cryptocurrency Exchange</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <style>
+        .logo {
+            background-image: url("{% static 'img/favicon.ico' %}");
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm py-3">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <i class="logo text-primary me-2" style="font-size: 1.5rem;"></i>
+            <span class="fw-bold">XChange</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="#">Markets</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Company</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Learn</a>
+                </li> -->
+            </ul>
+            <div class="d-flex">
+                <a href="{% url 'login' %}" class="btn me-2 text-light">Log In</a>
+                <a href="/users/signup" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
     </div>
-{% endblock %}
+</nav>
+
+<div class="bg-gradient-custom text-white p-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">Trade Crypto with Confidence</h1>
+                <p class="lead mb-5">Fast, secure, and reliable cryptocurrency exchange for traders of all levels.</p>
+                <div class="d-grid gap-3 d-sm-flex">
+                    <a class="btn btn-primary btn-lg px-4 fw-bold" href="/users/signup">
+                        Get Started <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="/api/placeholder/600/400" class="img-fluid rounded shadow"
+                     alt="Cryptocurrency trading dashboard">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="py-5" style="background-color: #15181d;">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-6 col-md-4 mb-4">
+                <p class="stat-number mb-0">100+</p>
+                <p class="text-muted">Cryptocurrencies</p>
+            </div>
+            <div class="col-6 col-md-4 mb-4">
+                <p class="stat-number mb-0">150+</p>
+                <p class="text-muted">Countries Supported</p>
+            </div>
+            <div class="col-6 col-md-4 mb-4">
+                <p class="stat-number mb-0">10M+</p>
+                <p class="text-muted">Verified Users</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Why Choose XChange</h2>
+            <p class="lead text-muted mx-auto">Our platform offers everything you need to trade cryptocurrencies with
+                confidence.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <i class="bi bi-shield-check feature-icon mb-3"></i>
+                        <h3 class="h5 fw-bold mb-3 text-light">Enterprise-Grade Security</h3>
+                        <p class="text-muted">Industry-leading security measures to keep your assets safe.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <i class="bi bi-graph-up feature-icon mb-3"></i>
+                        <h3 class="h5 fw-bold mb-3 text-light">Advanced Trading Tools</h3>
+                        <p class="text-muted">Professional trading features including margin trading, futures, and
+                            detailed analytics.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <i class="bi bi-cash-coin feature-icon mb-3"></i>
+                        <h3 class="h5 fw-bold mb-3 text-light">Variety</h3>
+                        <p class="text-muted">Invest in stocks, ETFs, and other assets worldwide. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-primary py-5 text-white text-center" style="background-color: #0c0f12 !important;">
+    <div class="container py-5">
+        <h2 class="display-5 fw-bold mb-4">Start Trading Today</h2>
+        <p class="lead mb-5 mx-auto" style="max-width: 700px;">Join millions of traders and investors on the world's
+            most trusted cryptocurrency exchange platform.</p>
+        <a class="btn btn-primary btn-lg px-5 fw-bold" href="/users/signup">Create Free Account</a>
+    </div>
+</div>
+
+<footer class="py-5">
+    <div class="pt-4 mt-4 d-flex flex-column flex-md-row justify-content-between align-items-center px-4">
+        <div class="d-flex align-items-center mb-3 mb-md-0">
+            <i class="logo text-primary me-2" style="font-size: 1.5rem;"></i>
+            <span class="fw-bold">XChange</span>
+        </div>
+        <p class="mb-0 text-muted">©
+            <script>document.write(new Date().getFullYear())</script>
+            XChange. All rights reserved.
+        </p>
+    </div>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+:root {
+    --color-primary: #f0b90b;
+    --color-primary-focus: #dba90a;
+}
+
+body {
+    background-color: #0b0e11;
+    color: var(--bs-gray-200);
+}
+
+.bg-gradient-custom {
+    background: linear-gradient(to right, #12161c, #2a2f36);
+}
+
+.navbar {
+    background-color: #1a1e23 !important;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+    color: #eaecef;
+}
+
+.card-body:hover {
+    border: 1px solid var(--color-primary);
+}
+
+.card-body {
+    border: 1px solid transparent;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-light .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+}
+
+.logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.card {
+    background-color: #1a1e23;
+    border: none;
+}
+
+.bg-light {
+    background-color: #12161c !important;
+}
+
+.text-muted {
+    color: #848e9c !important;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: black;
+}
+
+.btn-primary:hover,
+.btn-primary:focus, .btn-primary:active, .btn-primary:first-child:active {
+    background-color: var(--color-primary-focus);
+    border-color: var(--color-primary-focus);
+    color: black;
+}
+
+.btn-outline-light:hover {
+    color: black;
+}
+
+.bg-primary {
+    background-color: #0c0f12 !important;
+}
+
+.bg-dark {
+    background-color: #0b0e11 !important;
+}
+
+.border-secondary {
+    border-color: #2a2f36 !important;
+}
+
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+footer {
+    border-top: 1px solid #2a2f36;
+}
