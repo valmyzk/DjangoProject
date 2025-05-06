@@ -2,12 +2,11 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
-COPY . .
-
-RUN rm -rf ./.venv
 RUN pip install poetry
 
+COPY . .
 
+RUN rm -r ./.venv
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi --no-root
 
