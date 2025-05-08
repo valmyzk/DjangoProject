@@ -3,5 +3,17 @@
 {% block title %}XChange - Add Funds{% endblock %}
 
 {% block content %}
-<p>In this page you can add funds.</p>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
+        <h4 class="card-title text-center mb-4">Add Funds</h4>
+        <form>
+            <div class="mb-3">
+                <label for="amountField" class="form-label">Amount</label>
+                <input type="number" class="form-control" id="amountField" step="0.01" aria-describedby="amountHelp" required>
+                <div id="amountHelp" class="form-text text-secondary">The amount is in euros.</div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
