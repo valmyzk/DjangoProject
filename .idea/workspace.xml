@@ -4,10 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4f0c515-de59-43e9-b2ba-3f97aa18864a" name="Changes" comment="reorganized templates, added new templates, improved the base template adding the remaining buttons, and added the corresponding urls.">
+    <list default="true" id="b4f0c515-de59-43e9-b2ba-3f97aa18864a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/WebProject/templates/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/auth.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/auth.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DjangoProject.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebProject/templates/add_funds.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/add_funds.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebProject/templates/transfer_funds.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/transfer_funds.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DjangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/templates/users/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,25 +47,8 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;oleksandrML&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/valmyzk/DjangoProject&quot;,
-    &quot;accountId&quot;: &quot;22ef6eba-0394-4a6b-b27b-b91c8cf52362&quot;
-  }
-}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -58,8 +65,8 @@
     &quot;Docker.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/remake__templates&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/oleksandr/Desktop/udl_segon/web/DjangoProject&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/add__models&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/valenti/PycharmProjects/DjangoProject/docker-compose.yml&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -80,7 +87,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-a5bc9544c897-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.23654.177" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -97,22 +105,9 @@
       <workItem from="1744544971475" duration="278000" />
       <workItem from="1744545253772" duration="13954000" />
     </task>
-    <task id="LOCAL-00001" summary="reorganized templates, added new templates, improved the base template adding the remaining buttons, and added the corresponding urls.">
-      <option name="closed" value="true" />
-      <created>1746718711016</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1746718711016</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="reorganized templates, added new templates, improved the base template adding the remaining buttons, and added the corresponding urls." />
-    <option name="LAST_COMMIT_MESSAGE" value="reorganized templates, added new templates, improved the base template adding the remaining buttons, and added the corresponding urls." />
   </component>
 </project>
