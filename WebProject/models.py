@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from users.models import User
 from django.db import models
 
 class Wallet(models.Model):
@@ -33,7 +33,6 @@ class Asset(models.Model):
 
 
 class Holding(models.Model):
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)

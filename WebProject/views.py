@@ -1,13 +1,14 @@
 import decimal
 from decimal import Decimal
 
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.forms.models import model_to_dict
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
+from .forms import EditProfileForm
 from .models import Wallet
-from django.contrib import messages
 
 
 # Create your views here.
@@ -55,16 +56,19 @@ def transfer_funds(request: HttpRequest) -> HttpResponse:
 def my_profile(request: HttpRequest) -> HttpResponse:
     return render(request, 'my_profile.html')
 
+import logging
+log = logging.getLogger(__name__)
+
 @login_required
 def edit_profile(request):
     user = request.user
-
     if request.method == 'POST':
-        user.username = request.POST.get('username')
-        user.first_name = request.POST.get('first_name')
-        user.last_name = request.POST.get('last_name')
-        user.email = request.POST.get('email')
-        user.save()
-        return redirect('my_profile')  # Asumiendo que tienes esa URL
-
-    return render(request, 'edit_profile.html', {'user': user})
+        form = EditProfileForm(request.POST, initial=model_to_dict(user))
+        if form.is_valid():
+            user.date_of_birth = form.cleaned_data.get('date_of_birth')
+            user.phone = form.cleaned_data.get('phone')
+            user.save()
+            return redirect('my_profile')
+    else:
+        form = EditProfileForm(initial=model_to_dict(user))
+    return render(request, 'edit_profile.html', {'form': form})

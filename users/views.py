@@ -1,8 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import auth
+
+from .forms import UserCreationForm
 
 # Create your views here.
 def signup(request):
