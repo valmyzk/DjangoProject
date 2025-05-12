@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}XChange - Edit Profile{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4 text-white" style="width: 100%; max-width: 400px;">
+        <h4 class="text-center mb-4">Edit Profile</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                {{ field.errors }}
+                <label for="{{ field.auto_id }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Save Changes</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

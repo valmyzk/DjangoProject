@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}XChange - Transfer Funds{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
+        <h4 class="card-title text-center mb-4">Transfer Funds</h4>
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.destination.auto_id }}" class="form-label">{{ form.destination.label }}</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-dark text-white border-secondary">@</span>
+                    {{ form.destination }}
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.amount.auto_id }}" class="form-label">{{ form.amount.label }}</label>
+                <div class="input-group">
+                    {{ form.amount }}
+                    <span class="input-group-text bg-dark text-white border-secondary">€</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Transfer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

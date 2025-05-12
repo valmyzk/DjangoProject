@@ -1,11 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import auth
 
-# Create your views here.
-def signup(request):
+from .forms import UserCreationForm
+
+def signup(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():

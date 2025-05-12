@@ -1,20 +1,22 @@
-from django.contrib.auth.models import User
+from users.models import User
 from django.db import models
 
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
-        return f"Wallet {self.id}"
+        return f"Wallet of {self.user.email} (balance of {self.balance}€)"
 
 
 class Transaction(models.Model):
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
+    source = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_source')
+    destination = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_destination')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    datetime = models.DateTimeField()
+    datetime = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
-        return f"Transaction from Wallet {self.wallet.id} with amount {self.amount} on date: {self.datetime}"
+        return f"Transaction from {self.source.user.email} to {self.destination.user.email} with amount {self.amount} on date: {self.datetime}"
 
 
 class Asset(models.Model):
@@ -32,7 +34,6 @@ class Asset(models.Model):
 
 
 class Holding(models.Model):
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
