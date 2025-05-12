@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
+from django.db.models import Q
 
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm
+from .models import Transaction
 from .utils import transfer_funds_internal, get_admin
 
 logger = logging.getLogger(__name__)
@@ -14,16 +16,26 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 def root(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return render(request, 'dashboard.html')
+        return render(request, 'dashboard_wallet.html')
     return render(request, 'home.html')
+
+
+@login_required
+def cash(request: HttpRequest) -> HttpResponse:
+    wallet = request.user.wallet
+    transactions = Transaction.objects.filter(Q(source=wallet) | Q(destination=wallet)).order_by('-datetime')[:5]
+    return render(request, 'dashboard_cash.html', {'transactions': transactions})
+
 
 @login_required
 def buy(request: HttpRequest) -> HttpResponse:
     return render(request, 'buy.html')
 
+
 @login_required
 def sell(request: HttpRequest) -> HttpResponse:
     return render(request, 'sell.html')
+
 
 @login_required
 def add_funds(request: HttpRequest) -> HttpResponse:
@@ -35,6 +47,7 @@ def add_funds(request: HttpRequest) -> HttpResponse:
     else:
         form = AddFundsForm()
     return render(request, 'add_funds.html', {'form': form})
+
 
 @login_required
 def transfer_funds(request: HttpRequest) -> HttpResponse:
@@ -48,9 +61,11 @@ def transfer_funds(request: HttpRequest) -> HttpResponse:
         form = TransferFundsForm(request.user)
     return render(request, 'transfer_funds.html', {'form': form})
 
+
 @login_required
 def my_profile(request: HttpRequest) -> HttpResponse:
     return render(request, 'my_profile.html')
+
 
 @login_required
 def edit_profile(request):

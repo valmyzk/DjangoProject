@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}XChange - Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card bg-dark text-white shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Investments</h5>
+                    <p class="card-text text-secondary">Here you can see the investments.</p>
+                </div>
+            </div>
+            <div class="card bg-dark text-white shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Distribution of my assets</h5>
+                    <p class="card-text text-secondary">Graphic of the distribution of your assets.</p>
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card bg-dark text-white shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                         <a href="{% url 'root' %}" class="w-50 me-2 btn {% if request.path == '/' %}btn-light{% else %}btn-outline-light{% endif %}">
+                            Wallet
+                        </a>
+                        <a href="{% url 'cash' %}" class="w-50 btn {% if request.path == '/cash/' %}btn-light{% else %}btn-outline-light{% endif %}">
+                            Cash
+                        </a>
+                    </div>
+            <h6 class="text-muted mt-4">Balance</h6>
+            <p class="fs-4">{{ request.user.wallet.balance|floatformat:2 }} €</p>
+
+            <h6 class="text-muted mt-4">Recent transactions</h6>
+            {% if transactions %}
+                <ul class="list-group list-group-flush">
+                    {% for transaction in transactions %}
+                        <li class="list-group-item bg-dark text-white px-0">
+                            <div class="d-flex justify-content-between">
+                                <span>{{ transaction.wallet }}</span>
+                                <span>{{ transaction.datetime|date:"d/m/Y" }}</span>
+                                <span>{{ transaction.amount|floatformat:2 }} €</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-secondary small">No hay transacciones recientes.</p>
+            {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
