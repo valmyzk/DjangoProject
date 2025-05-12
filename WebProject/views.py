@@ -6,15 +6,25 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .models import Wallet
+from .models import Wallet, Transaction
 from django.contrib import messages
 
 
 # Create your views here.
 def root(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return render(request, 'dashboard.html')
+        return render(request, 'dashboard_wallet.html')
     return render(request, 'home.html')
+
+@login_required
+def cash(request: HttpRequest) -> HttpResponse:
+    wallet = Wallet.objects.get(user=request.user)
+    cash = wallet.amount
+    transactions = Transaction.objects.filter(wallet=wallet).order_by('-datetime')[:5]
+    return render(request, 'dashboard_cash.html', {
+        'cash': cash,
+        'transactions' : transactions,
+    })
 
 @login_required
 def buy(request: HttpRequest) -> HttpResponse:
