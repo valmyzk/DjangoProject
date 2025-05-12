@@ -7,20 +7,22 @@
     <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
         <h4 class="card-title text-center mb-4">Add Funds</h4>
         {% if messages %}
-            <div id="messageBox">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            </div>
+        <div id="messageBox">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
         {% endif %}
         <form method="POST">
             {% csrf_token %}
+            {% for field in form %}
             <div class="mb-3">
-                <label for="amountField" class="form-label">Amount</label>
-                <input type="number" class="form-control" id="amountField" name="amount" step="0.01" aria-describedby="amountHelp" required>
-                <div id="amountHelp" class="form-text text-secondary">The amount is in euros.</div>
+                {{ field.errors }}
+                <label for="{{ field.auto_id }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% endfor %}
             </div>
-            <button type="submit" class="btn btn-primary w-100">Add</button>
+            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Submit</button>
         </form>
     </div>
 </div>

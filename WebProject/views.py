@@ -1,14 +1,14 @@
-import decimal
-from decimal import Decimal
+import logging
 
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
-from .forms import EditProfileForm
-from .models import Wallet
+from .forms import EditProfileForm, AddFundsForm, TransferFundsForm
+from .utils import transfer_funds_internal, get_admin
+
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -28,36 +28,29 @@ def sell(request: HttpRequest) -> HttpResponse:
 @login_required
 def add_funds(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
-        amount = request.POST.get('amount')
-
-        try:
-            amount = Decimal(amount)
-        except (ValueError, TypeError, decimal.InvalidOperation):
-            amount = None
-
-        if amount and amount > 0:
-            wallet = Wallet.objects.get(user=request.user)
-            wallet.amount += amount
-            wallet.save()
-
-            messages.success(request, f"Funds added successfully! New balance: €{wallet.amount}")
-        else:
-            messages.error(request, "Please enter a valid amount.")
-
-        return redirect('add_funds')  # Redirect back to the page with success or error message
-
-    return render(request, 'add_funds.html')
+        form = AddFundsForm(request.POST)
+        if form.is_valid():
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, form.cleaned_data['amount'])
+            return redirect('/')
+    else:
+        form = AddFundsForm()
+    return render(request, 'add_funds.html', {'form': form})
 
 @login_required
 def transfer_funds(request: HttpRequest) -> HttpResponse:
-    return render(request, 'transfer_funds.html')
+    if request.method == 'POST':
+        form = TransferFundsForm(request.user, request.POST)
+        if form.is_valid():
+            # Form validation guarantees enough balance (ignoring TOCTOU...)
+            transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'])
+            return redirect('/')
+    else:
+        form = TransferFundsForm(request.user)
+    return render(request, 'transfer_funds.html', {'form': form})
 
 @login_required
 def my_profile(request: HttpRequest) -> HttpResponse:
     return render(request, 'my_profile.html')
-
-import logging
-log = logging.getLogger(__name__)
 
 @login_required
 def edit_profile(request):
