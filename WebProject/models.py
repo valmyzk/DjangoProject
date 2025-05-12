@@ -6,16 +6,17 @@ class Wallet(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
-        return f"Wallet {self.id}"
+        return f"Wallet of {self.user.email} (balance of {self.amount}€)"
 
 
 class Transaction(models.Model):
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
+    source = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_source')
+    destination = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_destination')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     datetime = models.DateTimeField()
 
     def __str__(self):
-        return f"Transaction from Wallet {self.wallet.id} with amount {self.amount} on date: {self.datetime}"
+        return f"Transaction from {self.source.user.email} to {self.destination.user.email} with amount {self.amount} on date: {self.datetime}"
 
 
 class Asset(models.Model):
