@@ -25,7 +25,5 @@ def get_admin() -> User:
     """
     :return: the administrator's account.
     """
-    return User.objects.get_or_create(email='admin@admin.com', defaults={
-        'phone': '00000000',
-        'date_of_birth': date(1970, 1, 1)
-    })[0]
+    admin, _ = User.objects.get(email='admin@admin.com')
+    return admin
