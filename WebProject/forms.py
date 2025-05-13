@@ -52,3 +52,18 @@ class TransferFundsForm(forms.Form):
         if self.user.wallet.balance < self.cleaned_data['amount']:
             raise ValidationError('Not enough balance in your wallet', code='balance')
         return self.cleaned_data['amount']
+
+class BuyAnAssetForm(forms.Form):
+    """
+    Form used to buy an asset.
+    """
+    asset = forms.CharField(label=_('Asset:'), required=True, widget=forms.TextInput(BOOTSTRAP_ATTRS))
+    amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1, widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+
+class SellAnAssetForm(forms.Form):
+    """
+    Form used to sell an asset.
+    """
+    asset = forms.CharField(label=_('Asset:'), required=True, widget=forms.TextInput(BOOTSTRAP_ATTRS))
+    amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1, widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+
