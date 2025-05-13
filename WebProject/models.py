@@ -54,12 +54,17 @@ class Asset(models.Model):
                 logger.error(f'Failed to download data for {symbol}')
         raise NotImplemented
 
-    def get_info(self) -> dict[str, Any]:
+    @property
+    def info(self) -> dict[str, Any]:
         return Asset.__get_info(self.type, self.symbol)
 
-    def get_current_price(self) -> float:
-        return self.get_info().get('currentPrice')
+    @property
+    def price(self) -> float:
+        return self.info.get('currentPrice')
 
+    @property
+    def stock_change(self) -> float:
+        return (self.info.get('currentPrice') / self.info.get('previousClose')) - 1
 
 class Holding(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
