@@ -1,5 +1,6 @@
 import logging
 from decimal import Decimal
+from datetime import date
 
 from django.db import transaction
 
@@ -24,4 +25,7 @@ def get_admin() -> User:
     """
     :return: the administrator's account.
     """
-    return User.objects.get(email='admin@admin.com')
+    return User.objects.get_or_create(email='admin@admin.com', defaults={
+        'phone': '00000000',
+        'date_of_birth': date(1970, 1, 1)
+    })[0]
