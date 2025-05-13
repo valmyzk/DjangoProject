@@ -12,7 +12,7 @@ class EditProfileForm(forms.Form):
     Form used to partially update contents of the user model.
     """
     email = forms.CharField(disabled=True, widget=forms.EmailInput(BOOTSTRAP_ATTRS))
-    phone = forms.CharField(widget=forms.TelInput(BOOTSTRAP_ATTRS))
+    phone = forms.CharField(widget=forms.TextInput(BOOTSTRAP_ATTRS | {'type': 'tel'}))
     date_of_birth = forms.CharField(widget=forms.DateInput(BOOTSTRAP_ATTRS | {'type': 'date'}))
 
 class AddFundsForm(forms.Form):
