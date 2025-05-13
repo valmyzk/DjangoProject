@@ -3,5 +3,27 @@
 {% block title %}XChange - Sell{% endblock %}
 
 {% block content %}
-<p>In this page you can sell your assets.</p>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
+        <h4 class="card-title text-center mb-4">Sell an asset</h4>
+        {% if messages %}
+        <div id="messageBox">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                {{ field.errors }}
+                <label for="{{ field.auto_id }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Submit</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

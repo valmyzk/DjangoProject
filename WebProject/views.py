@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
-from .forms import EditProfileForm, AddFundsForm, TransferFundsForm
+from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
 from .models import Transaction
 from .utils import transfer_funds_internal, get_admin
 
@@ -29,12 +29,14 @@ def cash(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def buy(request: HttpRequest) -> HttpResponse:
-    return render(request, 'operations/buy.html')
+    form = BuyAnAssetForm()
+    return render(request, 'operations/buy.html', {'form': form})
 
 
 @login_required
 def sell(request: HttpRequest) -> HttpResponse:
-    return render(request, 'operations/sell.html')
+    form = SellAnAssetForm()
+    return render(request, 'operations/sell.html', {'form': form})
 
 
 @login_required

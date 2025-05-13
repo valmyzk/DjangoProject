@@ -9,6 +9,18 @@ class UserManager(BaseUserManager):
     Custom user model manager.
     """
 
+    def create_user(self, email, password=None, **extra_fields):
+        """
+        Create and return a regular user with an email and password.
+        """
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
 class User(AbstractUser):
     """
     Custom user model which holds additional data.

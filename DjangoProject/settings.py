@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'WebProject.apps.WebprojectConfig',
     'users',
+    'behave_django'
 ]
 
 MIDDLEWARE = [

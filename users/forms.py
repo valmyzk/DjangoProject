@@ -12,7 +12,7 @@ class UserCreationForm(auth.forms.UserCreationForm):
         fields = ('email', 'phone', 'date_of_birth')
         widgets = {
             'email': forms.EmailInput(BOOTSTRAP_ATTRS),
-            'phone': forms.TelInput(BOOTSTRAP_ATTRS),
+            'phone': forms.TextInput(BOOTSTRAP_ATTRS | {'type': 'tel'}),
             'date_of_birth': forms.DateInput(BOOTSTRAP_ATTRS | {'type': 'date'})
         }
 
