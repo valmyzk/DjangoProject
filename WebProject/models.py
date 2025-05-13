@@ -1,12 +1,22 @@
+import logging
+from functools import lru_cache
+from typing import Any
+
+from requests.exceptions import HTTPError
+
 from users.models import User
 from django.db import models
+
+import yfinance as yf
+
+logger = logging.getLogger(__name__)
 
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
-        return f"Wallet of {self.user.email} (balance of {self.balance}€)"
+        return f"Wallet of {self.user.email} (balance of {self.balance} €)"
 
 
 class Transaction(models.Model):
@@ -22,15 +32,33 @@ class Transaction(models.Model):
 class Asset(models.Model):
     TYPES_OF_ASSETS_CHOICES = [
         ("CRYPTO", "Cryptocurrency"),
-        ("STK", "Stock"),
-        ("ETF", "Exchange-Traded Fund"),
+        ("STOCK", "Stock"),
+        ("ETF", "Exchange-Traded-Fund"),
     ]
+
     type = models.CharField(max_length=6, choices=TYPES_OF_ASSETS_CHOICES)
     name = models.CharField(max_length=30)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    symbol = models.CharField(max_length=10)
 
     def __str__(self):
-        return f"({self.type}) {self.name}: {self.price} EUR"
+        return f"({self.type}) {self.symbol}"
+
+    @staticmethod
+    @lru_cache
+    def __get_info(type: str, symbol: str) -> dict[str, Any]:
+        if type == 'STOCK' or type == 'ETF':
+            # Use the Yahoo! Finance API
+            try:
+                return yf.Ticker(symbol).info
+            except HTTPError:
+                logger.error(f'Failed to download data for {symbol}')
+        raise NotImplemented
+
+    def get_info(self) -> dict[str, Any]:
+        return Asset.__get_info(self.type, self.symbol)
+
+    def get_current_price(self) -> float:
+        return self.get_info().get('currentPrice')
 
 
 class Holding(models.Model):
@@ -39,4 +67,4 @@ class Holding(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"Wallet {self.wallet.id} => {self.asset.name} = {self.amount}"
+        return f"Wallet {self.user.email} => {self.asset.name} = {self.amount}"
