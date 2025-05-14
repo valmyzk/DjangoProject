@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully.">
-      <change afterPath="$PROJECT_DIR$/features/add_funds.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/steps/add_funds.steps.py" afterDir="false" />
+    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="Added add funds tests.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/register.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/register.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/steps/login.steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/steps/login.steps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/steps/register.steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/steps/register.steps.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +60,12 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/features/steps" />
+      <recent name="$PROJECT_DIR$/features" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -99,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747232475644</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added add funds tests.">
+      <option name="closed" value="true" />
+      <created>1747234927041</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747234927041</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -117,6 +132,7 @@
     <MESSAGE value="unversioned" />
     <MESSAGE value="deleted unnecessary file" />
     <MESSAGE value="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully." />
+    <MESSAGE value="Added add funds tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added add funds tests." />
   </component>
 </project>

@@ -16,7 +16,7 @@ def step_impl(context):
 
 @when('I enter email "{email}" and password "{password}"')
 def step_impl(context, email, password):
-    context.browser.fill('username', email)  # use 'username' instead of 'email'
+    context.browser.fill('username', email)
     context.browser.fill('password', password)
 
 @when('I press the login button')
