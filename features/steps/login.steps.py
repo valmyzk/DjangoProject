@@ -14,6 +14,17 @@ def step_impl(context, email, password):
 def step_impl(context):
     context.browser.visit(context.get_url('/users/login/'))
 
+@when('I enter email "{email}" and password "{password}"')
+def step_impl(context, email, password):
+    context.browser.fill('username', email)  # use 'username' instead of 'email'
+    context.browser.fill('password', password)
 
+@when('I press the login button')
+def step_impl(context):
+    context.browser.find_by_value('Log In').click()
+
+@then('I should enter to the dashboard')
+def step_impl(context):
+    assert context.browser.url.endswith('/'), f"Expected to be on dashboard, but was on {context.browser.url}"
 
 

@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4f0c515-de59-43e9-b2ba-3f97aa18864a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/features/login.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/steps/login.steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DjangoProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="deleted unnecessary file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +15,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -51,38 +43,20 @@
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2sqaoyw0rR9sSCNnNrZN9t4J8wj" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2x3g3Cqu5XSRjRIkHTF4SYwOFCZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Docker.Unnamed.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/add__e2e__tests",
-    "last_opened_file_path": "/home/oleksandr/Desktop/udl_segon/web/DjangoProject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/continue__e2e__tests&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/oleksandr/Desktop/udl_segon/web/DjangoProject&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/templates" />
-      <recent name="$PROJECT_DIR$/users/templates" />
-      <recent name="$PROJECT_DIR$/users/templates/users" />
-      <recent name="$PROJECT_DIR$/users/templates/registration" />
-      <recent name="$PROJECT_DIR$/users/templates/login" />
-    </key>
-  </component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -93,21 +67,34 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b4f0c515-de59-43e9-b2ba-3f97aa18864a" name="Changes" comment="" />
-      <created>1739185738028</created>
+      <changelist id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="" />
+      <created>1747171971300</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1739185738028</updated>
-      <workItem from="1739185739067" duration="3000" />
-      <workItem from="1744531868588" duration="2348000" />
-      <workItem from="1744544971475" duration="278000" />
-      <workItem from="1744545253772" duration="13954000" />
-      <workItem from="1747070200511" duration="253000" />
-      <workItem from="1747070457076" duration="331000" />
+      <updated>1747171971300</updated>
     </task>
+    <task id="LOCAL-00001" summary="unversioned">
+      <option name="closed" value="true" />
+      <created>1747226939996</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747226939996</updated>
+    </task>
+    <task id="LOCAL-00002" summary="deleted unnecessary file">
+      <option name="closed" value="true" />
+      <created>1747227124692</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747227124692</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="unversioned" />
+    <MESSAGE value="deleted unnecessary file" />
+    <option name="LAST_COMMIT_MESSAGE" value="deleted unnecessary file" />
   </component>
 </project>
