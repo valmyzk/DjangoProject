@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="deleted unnecessary file">
+    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully.">
+      <change afterPath="$PROJECT_DIR$/features/add_funds.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/steps/add_funds.steps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,12 +91,32 @@
       <option name="project" value="LOCAL" />
       <updated>1747227124692</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully.">
+      <option name="closed" value="true" />
+      <created>1747232475644</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747232475644</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="unversioned" />
     <MESSAGE value="deleted unnecessary file" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted unnecessary file" />
+    <MESSAGE value="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully." />
   </component>
 </project>

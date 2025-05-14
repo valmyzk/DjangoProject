@@ -25,5 +25,21 @@ def get_admin() -> User:
     """
     :return: the administrator's account.
     """
-    admin, _ = User.objects.get(email='admin@admin.com')
+    admin, created = User.objects.get_or_create(
+        email='admin@admin.com',
+        defaults={
+            'password': 'admin',  # Default password
+            'phone': '999 999 999',
+            'date_of_birth': '1970-01-01',
+            'is_staff': True,
+            'is_superuser': True
+        }
+    )
+
+    # Set the password if the user was created or if password is None
+    if created or admin.password is None:
+        admin.set_password('admin')
+        admin.save()
+
+
     return admin
