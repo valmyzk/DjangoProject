@@ -37,6 +37,5 @@ def step_impl(context):
 
 @then('my wallet balance should be "{expected_balance}"')
 def step_impl(context, expected_balance):
-    user = User.objects.get(email="ex@gmail.com")
-    wallet = Wallet.objects.get(user=user)
+    wallet = Wallet.objects.get(user__email="ex@gmail.com")
     assert str(wallet.balance) == expected_balance, f"Expected balance {expected_balance}, but got {wallet.balance}"
