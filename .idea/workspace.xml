@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="Added add funds tests.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/register.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/register.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/steps/login.steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/steps/login.steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/steps/register.steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/steps/register.steps.py" afterDir="false" />
-    </list>
+    <list default="true" id="fe0e5f67-6f21-450f-8396-3dd66039edf2" name="Changes" comment="added transfer funds tests" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,15 +46,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/continue__e2e__tests&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/oleksandr/Desktop/udl_segon/web/DjangoProject&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/continue__e2e__tests",
+    "last_opened_file_path": "/home/oleksandr/Desktop/udl_segon/web/DjangoProject",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/features/steps" />
@@ -114,7 +109,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747234927041</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="simplified">
+      <option name="closed" value="true" />
+      <created>1747236204525</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747236204525</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added transfer funds tests">
+      <option name="closed" value="true" />
+      <created>1747327428221</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747327428221</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,6 +144,8 @@
     <MESSAGE value="deleted unnecessary file" />
     <MESSAGE value="Added login and regiter tests with splinter+behave.&#10;The tests passed successfully." />
     <MESSAGE value="Added add funds tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added add funds tests." />
+    <MESSAGE value="simplified" />
+    <MESSAGE value="added transfer funds tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="added transfer funds tests" />
   </component>
 </project>
