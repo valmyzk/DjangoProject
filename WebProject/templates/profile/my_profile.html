@@ -3,28 +3,38 @@
 {% block title %}XChange - My Profile{% endblock %}
 
 {% block content %}
-
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
         <h4 class="card-title text-center mb-4">My profile</h4>
+
+        {% if user.profile_picture %}
+        <div class="text-center mb-3">
+            <img src="{{ user.profile_picture.url }}" alt="Profile picture"
+                 class="img-thumbnail rounded-circle" style="max-width: 120px;">
+        </div>
+        {% endif %}
+
         <form>
             <div class="card-body">
                 <dl class="row mb-0">
                     <dt class="col-sm-4">Email:</dt>
                     <dd class="col-sm-8">{{ user.email|default:"—" }}</dd>
+
                     <dt class="col-sm-4">Phone:</dt>
                     <dd class="col-sm-8">{{ user.phone|default:"-" }}</dd>
+
                     <dt class="col-sm-4">Date of birth</dt>
                     <dd class="col-sm-8">{{ user.date_of_birth|date:"d F, Y" }}</dd>
+
                     <dt class="col-sm-4">Joined:</dt>
                     <dd class="col-sm-8">{{ user.date_joined|date:"d F, Y" }}</dd>
                 </dl>
             </div>
+
             <a href="{% url 'edit_profile' %}" class="btn btn-primary w-100" title="Edit">
                 Edit
             </a>
         </form>
     </div>
-
 </div>
 {% endblock %}

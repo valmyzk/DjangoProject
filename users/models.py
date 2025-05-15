@@ -48,6 +48,9 @@ class User(AbstractUser):
     date_of_birth = models.DateField(_('date of birth'), null=False)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
+    # 🔽 Añade esto:
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
