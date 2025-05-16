@@ -1,8 +1,10 @@
+from decimal import Decimal
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from WebProject.models import Transaction, Wallet
+from WebProject.models import Wallet, Asset
 from users.models import User
 
 BOOTSTRAP_ATTRS = {'class': 'form-control bg-dark text-white border-secondary'}
@@ -59,6 +61,21 @@ class BuyAnAssetForm(forms.Form):
     """
     asset = forms.CharField(label=_('Asset:'), required=True, widget=forms.TextInput(BOOTSTRAP_ATTRS))
     amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1, widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+    
+    def __init__(self, user: User, *args, **kwargs):
+        self.user = user
+        self.price = 0
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        try:
+            asset = Asset.objects.get(symbol=self.cleaned_data['asset'])
+        except Asset.DoesNotExist:
+            raise ValidationError('Invalid asset symbol', code='invalid')
+        self.price = Decimal(asset.price) * self.cleaned_data['amount']
+        if self.user.wallet.balance < self.price:
+            raise ValidationError('Not enough balance', code='balance')
+        return {'asset': asset, 'amount': self.cleaned_data['amount']}
 
 class SellAnAssetForm(forms.Form):
     """

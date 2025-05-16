@@ -60,7 +60,10 @@ class Asset(models.Model):
 
     @property
     def price(self) -> float:
-        return self.info.get('currentPrice')
+        return self.price_history()[0]
+
+    def price_history(self, period: int = 1) -> list[float]:
+        return yf.Ticker(self.symbol).history(period=f'{period}d', prepost=True)['Close'].tolist()
 
     @property
     def stock_change(self) -> float:
@@ -69,7 +72,7 @@ class Asset(models.Model):
 class Holding(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"Wallet {self.user.email} => {self.asset.name} = {self.amount}"

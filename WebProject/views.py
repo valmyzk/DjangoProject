@@ -3,12 +3,13 @@ import logging
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from decimal import Decimal
 
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
-from .models import Transaction
-from .utils import transfer_funds_internal, get_admin
+from .models import Transaction, Asset
+from .utils import transfer_funds_internal, get_admin, add_funds_to_holding
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +30,15 @@ def cash(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def buy(request: HttpRequest) -> HttpResponse:
-    form = BuyAnAssetForm()
+    if request.method == 'POST':
+        form = BuyAnAssetForm(request.user, request.POST)
+        if form.is_valid():
+            logger.info(f'{form.cleaned_data['amount']=}')
+            transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price)
+            add_funds_to_holding(request.user, form.cleaned_data['asset'], form.cleaned_data['amount'])
+            return redirect('/')
+    else:
+        form = BuyAnAssetForm(request.user)
     return render(request, 'operations/buy.html', {'form': form})
 
 

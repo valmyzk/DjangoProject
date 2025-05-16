@@ -67,14 +67,14 @@ body {
     color: #848e9c !important;
 }
 
-.btn-primary {
+.btn-warning {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
     color: black;
 }
 
-.btn-primary:hover,
-.btn-primary:focus, .btn-primary:active, .btn-primary:first-child:active {
+.btn-warning:hover,
+.btn-warning:focus, .btn-warning:active, .btn-warning:first-child:active {
     background-color: var(--color-primary-focus);
     border-color: var(--color-primary-focus);
     color: black;
