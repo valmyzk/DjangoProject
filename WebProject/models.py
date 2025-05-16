@@ -1,4 +1,5 @@
 import logging
+from decimal import Decimal
 from functools import lru_cache
 from typing import Any
 
@@ -54,22 +55,41 @@ class Asset(models.Model):
                 logger.error(f'Failed to download data for {symbol}')
         raise NotImplemented
 
+    @staticmethod
+    @lru_cache
+    def __get_price_history(type: str, symbol: str, period: int):
+        if type == 'STOCK' or type == 'ETF':
+            # Use the Yahoo! Finance API
+            try:
+                return yf.Ticker(symbol).history(period=f'{period}d', prepost=True)['Close'].tolist()
+            except HTTPError:
+                logger.error(f'Failed to download data for {symbol}')
+        raise NotImplemented
+
     @property
     def info(self) -> dict[str, Any]:
         return Asset.__get_info(self.type, self.symbol)
 
     @property
     def price(self) -> float:
-        return self.info.get('currentPrice')
+        return self.price_history()[0]
+
+    def price_history(self, period: int = 1) -> list[float]:
+        return self.__get_price_history(self.type, self.symbol, period)
 
     @property
     def stock_change(self) -> float:
-        return (self.info.get('currentPrice') / self.info.get('previousClose')) - 1
+        return ((self.info.get('currentPrice') / self.info.get('previousClose')) - 1) * 100
+
 
 class Holding(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"Wallet {self.user.email} => {self.asset.name} = {self.amount}"
+
+    @property
+    def value(self) -> float:
+        return float(Decimal(self.asset.price) * self.amount)
