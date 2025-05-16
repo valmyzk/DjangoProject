@@ -35,3 +35,15 @@ def get_admin() -> User:
     """
     admin = User.objects.get(email='admin@admin.com')
     return admin
+
+def subtract_funds_from_holding(user, asset, amount):
+    """
+    Substracts amount from the holding. If holding amount is 0, the holding is deleted.
+    """
+    holding = Holding.objects.get(user=user, asset=asset)
+    holding.amount -= amount
+    if holding.amount <= 0:
+        holding.delete()
+    else:
+        holding.save()
+

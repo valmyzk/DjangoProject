@@ -2,13 +2,14 @@ import logging
 
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
+from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from decimal import Decimal
 
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
-from .models import Transaction, Asset
+from .models import Transaction, Asset, Holding
 from .utils import transfer_funds_internal, get_admin, add_funds_to_holding
 
 logger = logging.getLogger(__name__)
@@ -43,8 +44,27 @@ def buy(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-def sell(request: HttpRequest) -> HttpResponse:
-    form = SellAnAssetForm()
+def sell(request):
+    if request.method == 'POST':
+        form = SellAnAssetForm(request.user, request.POST)
+        if form.is_valid():
+            asset = form.asset_instance
+            amount = form.cleaned_data['amount']
+            total_price = form.price
+
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price)
+
+            holding = Holding.objects.get(user=request.user, asset=asset)
+            holding.amount -= amount
+            if holding.amount == 0:
+                holding.delete()
+            else:
+                holding.save()
+
+            return redirect('/')
+    else:
+        form = SellAnAssetForm(request.user)
+
     return render(request, 'operations/sell.html', {'form': form})
 
 
