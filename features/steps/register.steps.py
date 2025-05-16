@@ -30,3 +30,25 @@ def step_impl(context):
 @then('a wallet should be created for "{email}"')
 def step_impl(context, email):
     assert Wallet.objects.filter(user__email=email).exists(), "Wallet object does not exist in DB."
+
+@then('I should see a registration error message')
+def step_impl(context):
+    error = context.browser.find_by_css('.alert-danger, .text-danger, .errorlist li').first
+    assert error, "Expected a registration error message but none was found"
+
+@then('a wallet should not be created for "{email}"')
+def step_impl(context, email):
+    assert not Wallet.objects.filter(user__email=email).exists(), f"Unexpected wallet found for {email}"
+
+@when('I register with email "failuser@gmail.com", password "", and phone "123 456 789" and date "1970-01-01"')
+def step_impl_fail(context):
+    context.browser.fill('email', "failuser@gmail.com")
+    context.browser.fill('phone', "123 456 789")
+    context.browser.fill('date_of_birth', "1970-01-01")
+    context.browser.fill('password1', "")
+    context.browser.fill('password2', "")
+
+    context.browser.execute_script("document.getElementById('tos').checked = true;")
+    context.browser.execute_script("document.querySelector('form').submit();")
+
+

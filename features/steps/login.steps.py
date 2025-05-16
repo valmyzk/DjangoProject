@@ -32,3 +32,12 @@ def step_impl(context):
 @then('I should enter to the dashboard')
 def step_impl(context):
     assert context.browser.url.endswith('/'), f"Expected to be on dashboard, but was on {context.browser.url}"
+
+
+@then('I should see a login error message')
+def step_impl(context):
+    error = context.browser.find_by_css('.alert-danger').first
+    assert error, "Expected a login error message but none was found"
+    assert "correct" in error.text.lower(), f"Unexpected error message text: {error.text}"
+
+
