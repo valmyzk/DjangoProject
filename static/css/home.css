@@ -21,10 +21,6 @@ body {
     color: #eaecef;
 }
 
-.card-body:hover {
-    border: 1px solid var(--color-primary);
-}
-
 .card-body {
     border: 1px solid transparent;
 }

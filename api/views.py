@@ -5,7 +5,7 @@ from django.forms import model_to_dict
 from django.http import HttpRequest, HttpResponse, HttpResponseServerError, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 
-from WebProject.models import Asset
+from WebProject.models import Asset, Holding
 import json
 
 
@@ -33,4 +33,11 @@ def asset_price(request: HttpRequest, symbol: str) -> HttpResponse:
     # Get historical data
     response = HttpResponse()
     json.dump(get_object_or_404(Asset, symbol=symbol).price_history(period), response)
+    return response
+
+@login_required
+def holdings(request: HttpRequest) -> HttpResponse:
+    holdings = Holding.objects.filter(user=request.user)
+    response = HttpResponse()
+    json.dump([{'symbol': holding.asset.symbol, 'amount': float(holding.amount)} for holding in holdings], response)
     return response
