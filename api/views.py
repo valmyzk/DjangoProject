@@ -1,4 +1,3 @@
-
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.forms import model_to_dict

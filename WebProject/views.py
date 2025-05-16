@@ -40,7 +40,6 @@ def buy(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = BuyAnAssetForm(request.user, request.POST)
         if form.is_valid():
-            logger.info(f'{form.cleaned_data['amount']=}')
             transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price)
             add_funds_to_holding(request.user, form.cleaned_data['asset'], form.cleaned_data['amount'])
             return redirect('/')
@@ -50,8 +49,27 @@ def buy(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-def sell(request: HttpRequest) -> HttpResponse:
-    form = SellAnAssetForm()
+def sell(request):
+    if request.method == 'POST':
+        form = SellAnAssetForm(request.user, request.POST)
+        if form.is_valid():
+            asset = form.asset_instance
+            amount = form.cleaned_data['amount']
+            total_price = form.price
+
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price)
+
+            holding = Holding.objects.get(user=request.user, asset=asset)
+            holding.amount -= amount
+            if holding.amount == 0:
+                holding.delete()
+            else:
+                holding.save()
+
+            return redirect('/')
+    else:
+        form = SellAnAssetForm(request.user)
+
     return render(request, 'operations/sell.html', {'form': form})
 
 
