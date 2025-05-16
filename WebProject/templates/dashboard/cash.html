@@ -6,29 +6,17 @@
 <div class="container py-4">
     <div class="row g-4">
         <div class="col-md-4">
-            <div class="card bg-dark text-white shadow mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Investments</h5>
-                    <p class="card-text text-secondary">Here you can see your investments.</p>
-                </div>
-            </div>
-            <div class="card bg-dark text-white shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Distribution of my assets</h5>
-                    <p class="card-text text-secondary">Graphic of the distribution of your assets.</p>
-                    <canvas id="pieChart"></canvas>
-                </div>
-            </div>
+            {% include "dashboard/side_panel.html" %}
         </div>
         <div class="col-md-8">
             <div class="card bg-dark text-white shadow h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
-                         <a href="{% url 'root' %}" class="w-50 me-2 btn {% if request.path == '/' %}btn-light{% else %}btn-outline-light{% endif %}">
-                            Wallet
-                        </a>
-                        <a href="{% url 'cash' %}" class="w-50 btn {% if request.path == '/cash/' %}btn-light{% else %}btn-outline-light{% endif %}">
+                         <a href="{% url 'cash' %}" class="w-50 me-2 btn btn-light">
                             Cash
+                        </a>
+                        <a href="{% url 'wallet' %}" class="w-50 btn btn-outline-light">
+                            Wallet
                         </a>
                     </div>
             <h6 class="text-muted mt-4">Balance</h6>
@@ -56,7 +44,7 @@
                     {% endfor %}
                 </ul>
             {% else %}
-                <p class="text-secondary small">No hay transacciones recientes.</p>
+                <p class="text-secondary small">There are no recent transactions.</p>
             {% endif %}
                 </div>
             </div>
