@@ -10,6 +10,11 @@
                 <div class="card-body">
                     <h5 class="card-title">Investments</h5>
                     <p class="card-text text-secondary">Here you can see the investments.</p>
+                    {% if holdings %}
+                        {% for holding in holdings %}
+                            {{ holding.amount }}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="card bg-dark text-white shadow">
@@ -24,10 +29,10 @@
             <div class="card bg-dark text-white shadow h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
-                        <a href="{% url 'root' %}" class="w-50 me-2 btn {% if request.path == '/' %}btn-light{% else %}btn-outline-light{% endif %}">
+                        <a href="{% url 'root' %}" class="w-50 me-2 btn btn-light">
                             Wallet
                         </a>
-                        <a href="{% url 'cash' %}" class="w-50 btn {% if request.path == '/cash/' %}btn-light{% else %}btn-outline-light{% endif %}">
+                        <a href="{% url 'cash' %}" class="w-50 btn btn-outline-light">
                             Cash
                         </a>
                     </div>

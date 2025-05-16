@@ -7,8 +7,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from decimal import Decimal
 
+from users.models import User
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
-from .models import Transaction, Asset
+from .models import Transaction, Holding, Asset
 from .utils import transfer_funds_internal, get_admin, add_funds_to_holding
 
 logger = logging.getLogger(__name__)
@@ -17,9 +18,15 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 def root(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return render(request, 'dashboard/wallet.html')
+        return wallet(request)
     return render(request, 'landing.html')
 
+
+@login_required
+def wallet(request: HttpRequest) -> HttpResponse:
+    holdings = Holding.objects.filter(user=request.user).order_by('-amount')
+    logger.info(f'{holdings=}')
+    return render(request, 'dashboard/wallet.html', {'holdings': holdings})
 
 @login_required
 def cash(request: HttpRequest) -> HttpResponse:

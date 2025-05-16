@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f0c515-de59-43e9-b2ba-3f97aa18864a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/features/login.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/steps/login.steps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DjangoProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/templates/dashboard/cash.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/dashboard/cash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/templates/dashboard/wallet.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/dashboard/wallet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +64,7 @@
     "Docker.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/add__e2e__tests",
+    "git-widget-placeholder": "feat/finish-dashboard",
     "last_opened_file_path": "/home/oleksandr/Desktop/udl_segon/web/DjangoProject",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
