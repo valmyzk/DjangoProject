@@ -18,21 +18,21 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 def root(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return wallet(request)
+        return cash(request)
     return render(request, 'landing.html')
 
 
 @login_required
 def wallet(request: HttpRequest) -> HttpResponse:
     holdings = Holding.objects.filter(user=request.user).order_by('-amount')
-    logger.info(f'{holdings=}')
     return render(request, 'dashboard/wallet.html', {'holdings': holdings})
 
 @login_required
 def cash(request: HttpRequest) -> HttpResponse:
+    holdings = Holding.objects.filter(user=request.user).order_by('-amount')
     wallet = request.user.wallet
     transactions = Transaction.objects.filter(Q(source=wallet) | Q(destination=wallet)).order_by('-datetime')[:5]
-    return render(request, 'dashboard/cash.html', {'transactions': transactions})
+    return render(request, 'dashboard/cash.html', {'transactions': transactions, 'holdings': holdings})
 
 
 @login_required
