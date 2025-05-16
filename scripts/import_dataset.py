@@ -5,6 +5,7 @@ Datasets used:
     - "Stock Market Dataset" by Oleh Onyschak
 """
 import os
+
 import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoProject.settings')
@@ -26,6 +27,7 @@ INTERVAL_END = date(2020, 12, 31)
 TOP_K = 100
 
 NASDAQ100_DATA = "http://www.nasdaqtrader.com/dynamic/SymDir/nasdaqtraded.txt"
+
 
 def parse_nasdaq() -> tuple[pl.DataFrame, dict[str, pl.DataFrame]]:
     # Download NASDAQ-exchanged securities.
@@ -69,6 +71,7 @@ def parse_nasdaq() -> tuple[pl.DataFrame, dict[str, pl.DataFrame]]:
     stock_data = {symbol: data for symbol, data in stock_data.items() if symbol in secs}
 
     return df.drop_nulls(), stock_data
+
 
 def main():
     print(f'Parsing NASDAQ100 data...', end='', file=stderr)

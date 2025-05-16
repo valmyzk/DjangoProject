@@ -9,6 +9,7 @@ from users.models import User
 
 BOOTSTRAP_ATTRS = {'class': 'form-control bg-dark text-white border-secondary'}
 
+
 class EditProfileForm(forms.Form):
     """
     Form used to partially update contents of the user model.
@@ -17,18 +18,23 @@ class EditProfileForm(forms.Form):
     phone = forms.CharField(widget=forms.TextInput(BOOTSTRAP_ATTRS | {'type': 'tel'}))
     date_of_birth = forms.CharField(widget=forms.DateInput(BOOTSTRAP_ATTRS | {'type': 'date'}))
 
+
 class AddFundsForm(forms.Form):
     """
     Form used to add funds to a wallet. (Free money!)
     """
-    amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1, widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+    amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1,
+                                widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+
 
 class TransferFundsForm(forms.Form):
     """
     Form used to transfer funds from one account to the other.
     """
-    destination = forms.CharField(label=_('Account to transfer funds into:'), required=True, widget=forms.TextInput(BOOTSTRAP_ATTRS))
-    amount = forms.DecimalField(label=_('Amount to transfer:'), required=True, min_value=0, step_size=0.1, widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+    destination = forms.CharField(label=_('Account to transfer funds into:'), required=True,
+                                  widget=forms.TextInput(BOOTSTRAP_ATTRS))
+    amount = forms.DecimalField(label=_('Amount to transfer:'), required=True, min_value=0, step_size=0.1,
+                                widget=forms.NumberInput(BOOTSTRAP_ATTRS))
 
     def __init__(self, user: User, *args, **kwargs):
         self.user = user
@@ -55,12 +61,14 @@ class TransferFundsForm(forms.Form):
             raise ValidationError('Not enough balance in your wallet', code='balance')
         return self.cleaned_data['amount']
 
+
 class BuyAnAssetForm(forms.Form):
     """
     Form used to buy an asset.
     """
     asset = forms.CharField(label=_('Asset:'), required=True, widget=forms.TextInput(BOOTSTRAP_ATTRS))
-    amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1, widget=forms.NumberInput(BOOTSTRAP_ATTRS))
+    amount = forms.DecimalField(label='Amount:', min_value=0, decimal_places=2, step_size=0.1,
+                                widget=forms.NumberInput(BOOTSTRAP_ATTRS))
 
     def __init__(self, user: User, *args, **kwargs):
         self.user = user
@@ -76,6 +84,7 @@ class BuyAnAssetForm(forms.Form):
         if self.user.wallet.balance < self.price:
             raise ValidationError('Not enough balance', code='balance')
         return {'asset': asset, 'amount': self.cleaned_data['amount']}
+
 
 class SellAnAssetForm(forms.Form):
     asset = forms.ChoiceField(
@@ -100,7 +109,8 @@ class SellAnAssetForm(forms.Form):
 
         owned_assets = Holding.objects.filter(user=user).select_related('asset')
         self.choices_map = {str(h.asset.symbol): h.asset for h in owned_assets}
-        self.fields['asset'].choices = [(symbol, f"{asset.name} ({symbol})") for symbol, asset in self.choices_map.items()]
+        self.fields['asset'].choices = [(symbol, f"{asset.name} ({symbol})") for symbol, asset in
+                                        self.choices_map.items()]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -120,5 +130,5 @@ class SellAnAssetForm(forms.Form):
         if holding.amount < amount:
             raise ValidationError(_('You do not have enough of this asset to sell.'), code='insufficient_amount')
 
-        self.price = Decimal(str(self.asset_instance.price))* amount
+        self.price = Decimal(str(self.asset_instance.price)) * amount
         return cleaned_data

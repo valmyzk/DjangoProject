@@ -26,14 +26,14 @@
         <form method="POST">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="{{ form.asset.id_for_label }}" class="form-label">{{ form.asset.label }}</label>
+                <label class="form-label" for="{{ form.asset.id_for_label }}">{{ form.asset.label }}</label>
                 {{ form.asset }}
             </div>
             <div class="mb-3">
-                <label for="{{ form.amount.id_for_label }}" class="form-label">{{ form.amount.label }}</label>
+                <label class="form-label" for="{{ form.amount.id_for_label }}">{{ form.amount.label }}</label>
                 {{ form.amount }}
             </div>
-            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Submit</button>
+            <button class="btn btn-warning w-100 fw-semibold py-2" type="submit">Submit</button>
         </form>
     </div>
 </div>

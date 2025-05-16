@@ -27,7 +27,6 @@ load_dotenv()
 
 STOCK_DATASET = "https://www.kaggle.com/api/v1/datasets/download/jacksoncrow/stock-market-dataset"
 
-
 # Data export interval.
 INTERVAL_START = date(2000, 1, 1)
 INTERVAL_END = date(2020, 12, 31)
@@ -66,7 +65,8 @@ def parse_meta_df(df: pl.DataFrame, zip: ZipFile) -> tuple[pl.DataFrame, dict[st
     volume_df = pl.DataFrame(mean_volume).transpose(include_header=True, header_name='symbol',
                                                     column_names=['mean_volume'])
 
-    df = df.join(volume_df, on='symbol').sort('mean_volume', descending=True).drop_nulls().group_by('etf', maintain_order=True).head(
+    df = df.join(volume_df, on='symbol').sort('mean_volume', descending=True).drop_nulls().group_by('etf',
+                                                                                                    maintain_order=True).head(
         TOP_K)
 
     # Prune stock data of unwanted securities
@@ -98,6 +98,7 @@ def main():
 
     for etf, symbol, name, *_ in s_symbols.iter_rows():
         Asset.objects.create(type='ETF' if etf else 'STOCK', symbol=symbol, name=name)
+
 
 if __name__ == "__main__":
     main()

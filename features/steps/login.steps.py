@@ -1,7 +1,7 @@
+from datetime import date
+
 from behave import given, when, then
 from django.contrib.auth import get_user_model
-
-from datetime import date
 
 User = get_user_model()
 
@@ -39,5 +39,3 @@ def step_impl(context):
     error = context.browser.find_by_css('.alert-danger').first
     assert error, "Expected a login error message but none was found"
     assert "correct" in error.text.lower(), f"Unexpected error message text: {error.text}"
-
-

@@ -16,7 +16,7 @@
         <form method="POST">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="{{ form.asset.auto_id }}" class="form-label">{{ form.asset.label }}</label>
+                <label class="form-label" for="{{ form.asset.auto_id }}">{{ form.asset.label }}</label>
                 <div class="input-group">
                     {{ form.asset }}
                     <span class="input-group-text bg-dark text-white border-secondary">🔍</span>
@@ -24,23 +24,23 @@
             </div>
             <div class="mb-3 d-none">
                 The current price of the asset is:
-                <span id="id_price" class="text-primary">Loading...</span>
+                <span class="text-primary" id="id_price">Loading...</span>
             </div>
             <div class="mb-3">
-                <label for="{{ form.amount.auto_id }}" class="form-label">{{ form.amount.label }}</label>
+                <label class="form-label" for="{{ form.amount.auto_id }}">{{ form.amount.label }}</label>
                 {{ form.amount }}
             </div>
             <div class="mb-3 d-none">
                 Total amount is:
-                <span id="id_total" class="text-primary">Loading...</span>
+                <span class="text-primary" id="id_total">Loading...</span>
             </div>
-            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Submit</button>
+            <button class="btn btn-warning w-100 fw-semibold py-2" type="submit">Submit</button>
         </form>
     </div>
 </div>
 {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 

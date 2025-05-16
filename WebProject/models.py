@@ -3,14 +3,14 @@ from decimal import Decimal
 from functools import lru_cache
 from typing import Any
 
+import yfinance as yf
+from django.db import models
 from requests.exceptions import HTTPError
 
 from users.models import User
-from django.db import models
-
-import yfinance as yf
 
 logger = logging.getLogger(__name__)
+
 
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -79,7 +79,7 @@ class Asset(models.Model):
 
     @property
     def stock_change(self) -> float:
-        return ((self.info.get('currentPrice') / self.info.get('previousClose')) - 1) * 100
+        return ((self.info.get('currentPrice', 0) / self.info.get('previousClose')) - 1) * 100
 
 
 class Holding(models.Model):

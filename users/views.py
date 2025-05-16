@@ -1,9 +1,10 @@
+from django.contrib import auth
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib import auth
 
 from .forms import UserCreationForm
+
 
 def signup(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
@@ -16,6 +17,7 @@ def signup(request: HttpRequest) -> HttpResponse:
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {"form": form})
+
 
 def logout(request: HttpRequest) -> HttpResponse:
     auth.logout(request)

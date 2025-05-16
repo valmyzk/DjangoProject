@@ -1,15 +1,13 @@
 import logging
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Q
-from decimal import Decimal
+from django.shortcuts import render, redirect
 
-from users.models import User
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
-from .models import Transaction, Holding, Asset
+from .models import Transaction, Holding
 from .utils import transfer_funds_internal, get_admin, add_funds_to_holding
 
 logger = logging.getLogger(__name__)
@@ -26,6 +24,7 @@ def root(request: HttpRequest) -> HttpResponse:
 def wallet(request: HttpRequest) -> HttpResponse:
     holdings = Holding.objects.filter(user=request.user).order_by('-amount')
     return render(request, 'dashboard/wallet.html', {'holdings': holdings})
+
 
 @login_required
 def cash(request: HttpRequest) -> HttpResponse:

@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>{% block title %}XChange - Cryptocurrency Exchange{% endblock %}</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
     <style>
         .logo {
             background-image: url("{% static 'img/favicon.ico' %}");
@@ -25,41 +25,43 @@
             <i class="logo text-primary me-2" style="font-size: 1.5rem;"></i>
             <span class="fw-bold">XChange</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a  href="{% url 'root' %}" class="btn btn-dark me-2" title="My dashboard"> My dashboard</a>
+                    <a class="btn btn-dark me-2" href="{% url 'root' %}" title="My dashboard"> My dashboard</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <button class="btn btn-dark dropdown-toggle me-2" type="button" id="operateDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button aria-expanded="false" class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown"
+                            id="operateDropdown" type="button">
                         Operate
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="operateDropdown">
-                        <li><a href="{% url 'buy' %}" class="dropdown-item " >Buy</a></li>
-                        <li><a href="{% url 'sell' %}" class="dropdown-item " >Sell</a></li>
+                    <ul aria-labelledby="operateDropdown" class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item " href="{% url 'buy' %}">Buy</a></li>
+                        <li><a class="dropdown-item " href="{% url 'sell' %}">Sell</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <button class="btn btn-dark dropdown-toggle me-2" type="button" id="transactionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button aria-expanded="false" class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown"
+                            id="transactionsDropdown" type="button">
                         Transactions
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="transactionsDropdown">
-                        <li><a href="{% url 'add_funds' %}" class="dropdown-item " >Add funds</a></li>
-                        <li><a href="{% url 'transfer_funds' %}" class="dropdown-item " >Transfer funds</a></li>
+                    <ul aria-labelledby="transactionsDropdown" class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item " href="{% url 'add_funds' %}">Add funds</a></li>
+                        <li><a class="dropdown-item " href="{% url 'transfer_funds' %}">Transfer funds</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="d-flex ">
-                <a  href="{% url 'my_profile' %}" class="btn btn-dark me-2" title="My profile">
+                <a class="btn btn-dark me-2" href="{% url 'my_profile' %}" title="My profile">
                     <i class="bi bi-person-circle" style="font-size: 1.0rem;"></i>
                     My profile
                 </a>
             </div>
             <div class="d-flex">
-                <a href="{% url 'logout' %}" class="btn me-2 btn-warning">Sign out</a>
+                <a class="btn me-2 btn-warning" href="{% url 'logout' %}">Sign out</a>
             </div>
         </div>
     </div>
