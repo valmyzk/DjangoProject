@@ -9,19 +9,34 @@
             <div class="card bg-dark text-white shadow mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Investments</h5>
-                    <p class="card-text text-secondary">Here you can see the investments.</p>
                     {% if holdings %}
-                        {% for holding in holdings %}
-                            {{ holding.amount }}
-                        {% endfor %}
+                    {% for holding in holdings %}
+                    <div class="card bg-dark text-white shadow">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ holding.asset.name }} ({{ holding.asset.symbol }})</h6>
+                            <div class="card-subtitle d-flex justify-content-between">
+                                <span>{{ holding.amount }} shares</span>
+                                <span class="{% if holding.asset.stock_change > 0 %}text-success{% else %}text-danger{% endif %}">{{ holding.value|floatformat:2 }}</span>
+                                <span class="{% if holding.asset.stock_change > 0 %}text-success{% else %}text-danger{% endif %}">{{ holding.asset.stock_change|floatformat:2 }}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="card-text text-secondary">Here you can see your investments.</p>
                     {% endif %}
                 </div>
             </div>
             <div class="card bg-dark text-white shadow">
                 <div class="card-body">
                     <h5 class="card-title">Distribution of my assets</h5>
+                    {% if holdings %}
                     <p class="card-text text-secondary">Graphic of the distribution of your assets.</p>
-                    <canvas id="pieChart"></canvas>
+                    <canvas id="id_investments" style="max-width: 20em; max-height: 20em"></canvas>
+                    {% else %}
+                    <p class="card-text text-secondary">You have no investments.</p>
+
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -42,4 +57,36 @@
         </div>
     </div>
 </div>
+
+<script type="module">
+    const ctx = document.getElementById('id_investments');
+
+    const holdings = await fetch('/api/holdings').then(response => response.json());
+
+    const labels = holdings.map(({symbol}) => symbol);
+    const values = holdings.map(({amount}) => amount);
+
+    console.log({labels, values})
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
