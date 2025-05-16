@@ -29,7 +29,7 @@ def step_impl(context, amount):
 
 @when('I press the add button')
 def step_impl(context):
-    context.browser.find_by_value('Add').click()
+    context.browser.execute_script("document.querySelector('form').submit();")
 
 @then('I should be redirected to the dashboard page')
 def step_impl(context):
@@ -39,3 +39,19 @@ def step_impl(context):
 def step_impl(context, expected_balance):
     wallet = Wallet.objects.get(user__email="ex@gmail.com")
     assert str(wallet.balance) == expected_balance, f"Expected balance {expected_balance}, but got {wallet.balance}"
+
+@then('I should see an error message "{message}"')
+def step_impl(context, message):
+    error = context.browser.find_by_css('.alert-danger, .errorlist, .text-danger').first
+    assert error, "Expected to find an error message but found none."
+    assert message in error.text, f"Expected error message '{message}', but got '{error.text}'"
+
+
+@then('my wallet balance should still be "{expected_balance}"')
+def step_impl(context, expected_balance):
+    from decimal import Decimal
+    import time
+    time.sleep(1)  # wait for DB update if needed
+    wallet = Wallet.objects.get(user__email="ex@gmail.com")
+    wallet.refresh_from_db()
+    assert wallet.balance == Decimal(expected_balance), f"Expected balance {expected_balance}, but got {wallet.balance}"

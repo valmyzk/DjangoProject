@@ -4,24 +4,34 @@
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
+    <div class="card shadow p-4 text-white bg-dark" style="max-width: 400px; width: 100%;">
         <h4 class="card-title text-center mb-4">Add Funds</h4>
-        {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            {% for field in form %}
-                {% for error in field.errors %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in form.non_field_errors %}
                     <div>{{ error }}</div>
                 {% endfor %}
-            {% endfor %}
-        </div>
+            </div>
         {% endif %}
-        <form method="POST">
+
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
             {% csrf_token %}
             <div class="mb-3">
                 <label for="{{ form.amount.auto_id }}" class="form-label">{{ form.amount.label }}</label>
                 <div class="input-group">
                     {{ form.amount }}
-                    <span class="input-group-text bg-dark text-white border-secondary">€</span>
+                    <span class="input-group-text bg-secondary text-white">€</span>
                 </div>
             </div>
             <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Add</button>

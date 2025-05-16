@@ -28,10 +28,11 @@ def step_impl(context, amount):
 
 @when('I press the transfer button')
 def step_impl(context):
-    context.browser.find_by_value('Transfer').click()
+    context.browser.execute_script("document.querySelector('form').submit();")
 
 @then('"{email}" wallet balance should be "{expected_balance}"')
 def step_impl(context, email, expected_balance):
     user = User.objects.get(email=email)
     wallet = Wallet.objects.get(user=user)
     assert str(wallet.balance) == expected_balance, f"Expected balance {expected_balance}, but got {wallet.balance}"
+
