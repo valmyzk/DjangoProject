@@ -61,7 +61,7 @@ class Asset(models.Model):
         if type == 'STOCK' or type == 'ETF':
             # Use the Yahoo! Finance API
             try:
-                return yf.Ticker(symbol).history(period=f'{period}d', prepost=True)['Close'].tolist()
+                return yf.Ticker(symbol).history(period=f'{period}d')['Close'].tolist()
             except HTTPError:
                 logger.error(f'Failed to download data for {symbol}')
         raise NotImplemented
