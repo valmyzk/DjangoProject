@@ -8,6 +8,23 @@
 
     <h4 class="card-title text-center mb-4">Transfer Detail</h4>
 
+    {% if transfer.destination.user.email == 'admin@admin.com' and transfer.type == 'BUY' %}
+      <p><strong>Type:</strong> Asset purchase</p>
+    {% elif transfer.source.user.email == 'admin@admin.com' and transfer.type == 'SELL' %}
+      <p><strong>Type:</strong> Asset sale</p>
+    {% elif transfer.source == transfer.destination %}
+      <p><strong>Type:</strong> Self-transfer (e.g. to external card)</p>
+    {% elif transfer.source.user.email == 'admin@admin.com' %}
+      <p><strong>Type:</strong> Money deposited (Add Funds)</p>
+    {% elif transfer.source.user == request.user and transfer.destination.user != request.user %}
+      <p><strong>Type:</strong> Sent to another user</p>
+    {% elif transfer.destination.user == request.user and transfer.source.user != request.user %}
+      <p><strong>Type:</strong> Received from another user</p>
+    {% else %}
+      <p><strong>Type:</strong> Other</p>
+    {% endif %}
+
+
     <p><strong>Date:</strong>
       <span property="startDate" content="{{ transfer.datetime|date:'Y-m-d' }}">
             {{ transfer.datetime|date:"F j, Y, H:i" }}

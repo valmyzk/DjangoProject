@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 
-def transfer_funds_internal(source: Wallet, destination: Wallet, amount: Decimal) -> Transaction:
+def transfer_funds_internal(source: Wallet, destination: Wallet, amount: Decimal, type: str = 'TRANSFER') -> Transaction:
     """
     Registers a transaction and returns it.
     """
@@ -20,8 +20,8 @@ def transfer_funds_internal(source: Wallet, destination: Wallet, amount: Decimal
         destination.balance += amount
         source.save()
         destination.save()
-        transfer = Transaction.objects.create(source=source, destination=destination, amount=amount)
-    logger.info(f'Transferred {amount}€ from {source.user.email} to {destination.user.email}')
+        transfer = Transaction.objects.create(source=source, destination=destination, amount=amount, type=type)
+    logger.info(f'Transferred {amount}€ from {source.user.email} to {destination.user.email} (type: {type})')
     return transfer
 
 
