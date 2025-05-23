@@ -1,0 +1,42 @@
+<div vocab="https://schema.org/" typeof="MoneyTransfer" class="card shadow p-4">
+
+  <h2 class="card-title mb-4">Transfer Detail</h2>
+
+  <p><strong>Date:</strong>
+    <span property="startDate" content="{{ transfer.datetime|date:'Y-m-d' }}">
+      {{ transfer.datetime|date:"F j, Y, H:i" }}
+    </span>
+  </p>
+
+  <p><strong>From:</strong>
+    {% if transfer.source and transfer.source.user %}
+      <span property="sender" typeof="Person">
+        <span property="name">{{ transfer.source.user.get_full_name|default:transfer.source.user.username }}</span>
+      </span>
+    {% else %}
+      <em>Unknown sender</em>
+    {% endif %}
+  </p>
+
+  <p><strong>To:</strong>
+    {% if transfer.destination and transfer.destination.user %}
+      <span property="recipient" typeof="Person">
+        <span property="name">{{ transfer.destination.user.get_full_name|default:transfer.destination.user.username }}</span>
+      </span>
+    {% else %}
+      <em>Unknown recipient</em>
+    {% endif %}
+  </p>
+
+  <p><strong>Amount:</strong>
+    <span property="amount" typeof="MonetaryAmount">
+      <span property="value">{{ transfer.amount }}</span>
+      <span property="currency">EUR</span>
+    </span>
+  </p>
+
+  <p><strong>Description:</strong>
+    <span property="description">Transferencia realizada en la app XChange.</span>
+  </p>
+
+</div>

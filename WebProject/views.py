@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
@@ -89,12 +90,22 @@ def transfer_funds(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = TransferFundsForm(request.user, request.POST)
         if form.is_valid():
-            # Form validation guarantees enough balance (ignoring TOCTOU...)
-            transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'])
-            return redirect('/')
+            transfer = transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'])
+            return redirect('transfer_detail', pk=transfer.pk)
     else:
         form = TransferFundsForm(request.user)
     return render(request, 'transactions/transfer_funds.html', {'form': form})
+
+
+@login_required
+def transfer_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    transfer = get_object_or_404(Transaction, pk=pk)
+
+    # Seguridad: solo permitir ver si es emisor o receptor
+    if transfer.source != request.user.wallet and transfer.destination != request.user.wallet:
+        return redirect('/')  # O muestra error 403
+
+    return render(request, 'transactions/transfer_detail.html', {'transfer': transfer})
 
 
 @login_required
