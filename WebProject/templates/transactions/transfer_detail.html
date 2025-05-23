@@ -1,42 +1,46 @@
-<div vocab="https://schema.org/" typeof="MoneyTransfer" class="card shadow p-4">
+{% extends 'base.html' %}
 
-  <h2 class="card-title mb-4">Transfer Detail</h2>
+{% block title %}XChange - Transfer Detail{% endblock %}
 
-  <p><strong>Date:</strong>
-    <span property="startDate" content="{{ transfer.datetime|date:'Y-m-d' }}">
-      {{ transfer.datetime|date:"F j, Y, H:i" }}
-    </span>
-  </p>
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
 
-  <p><strong>From:</strong>
-    {% if transfer.source and transfer.source.user %}
+    <h4 class="card-title text-center mb-4">Transfer Detail</h4>
+
+    <p><strong>Date:</strong>
+      <span property="startDate" content="{{ transfer.datetime|date:'Y-m-d' }}">
+            {{ transfer.datetime|date:"F j, Y, H:i" }}
+      </span>
+    </p>
+
+    <p><strong>From:</strong>
       <span property="sender" typeof="Person">
-        <span property="name">{{ transfer.source.user.get_full_name|default:transfer.source.user.username }}</span>
+        <span property="name">
+          {{ transfer.source.user.get_full_name|default:transfer.source.user.username|default:transfer.source.user.email }}
+        </span>
       </span>
-    {% else %}
-      <em>Unknown sender</em>
-    {% endif %}
-  </p>
+    </p>
 
-  <p><strong>To:</strong>
-    {% if transfer.destination and transfer.destination.user %}
+    <p><strong>To:</strong>
       <span property="recipient" typeof="Person">
-        <span property="name">{{ transfer.destination.user.get_full_name|default:transfer.destination.user.username }}</span>
+        <span property="name">
+          {{ transfer.destination.user.get_full_name|default:transfer.destination.user.username|default:transfer.destination.user.email }}
+        </span>
       </span>
-    {% else %}
-      <em>Unknown recipient</em>
-    {% endif %}
-  </p>
+    </p>
 
-  <p><strong>Amount:</strong>
-    <span property="amount" typeof="MonetaryAmount">
-      <span property="value">{{ transfer.amount }}</span>
-      <span property="currency">EUR</span>
-    </span>
-  </p>
+    <p><strong>Amount:</strong>
+      <span property="amount" typeof="MonetaryAmount">
+        <span property="value">{{ transfer.amount }}</span>
+        <span property="currency">EUR</span>
+      </span>
+    </p>
 
   <p><strong>Description:</strong>
     <span property="description">Transferencia realizada en la app XChange.</span>
   </p>
 
+  </div>
 </div>
+{% endblock %}

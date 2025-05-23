@@ -2,6 +2,45 @@
 
 {% block title %}XChange - Dashboard{% endblock %}
 
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const ctx = document.getElementById('assetsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Today'],  // sustituir por fechas reales
+          datasets: [{
+            label: 'Portfolio Value (€)',
+            data: [5000, 6000, 5500, 6800, 6933],  // sustituir por valores reales
+            fill: true,
+            borderColor: 'rgb(255, 205, 86)',
+            backgroundColor: 'rgba(255, 205, 86, 0.2)',
+            tension: 0.3
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#fff'
+              }
+            }
+          }
+        }
+      });
+      },
+    );
+
+    </script>
+    {% endblock %}
+    }
 {% block content %}
 <div class="container py-4">
     <div class="row g-4">
@@ -19,7 +58,8 @@
                             Wallet
                         </a>
                     </div>
-                    <p class="card-text text-secondary">Here you can see the evolution of your assets.</p>
+                        <canvas id="assetsChart" height="300"></canvas>
+
                 </div>
             </div>
         </div>

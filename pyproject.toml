@@ -7,7 +7,7 @@ authors = [
     { name = "Oleksandr Mudryk", email = "om4@alumnes.udl.cat" },
     { name = "Valentí Martín", email = "vms7@alumnes.udl.cat" },
     { name = "Pau Coll", email = "pcX@alumnes.udl.cat" },
-    { name = "Alexandru Porosnicu", email = "apX@alumnes.udl.cat" }
+    { name = "Alexandru Pagu", email = "ap36@alumnes.udl.cat" }
 ]
 readme = "README.md"
 requires-python = ">=3.12"
