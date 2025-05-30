@@ -4,18 +4,33 @@
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-  <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
+  <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;" vocab="https://schema.org/" typeof="TransferAction">
 
     <h4 class="card-title text-center mb-4">Transfer Detail</h4>
 
+    {% if transfer.destination.user.email == 'admin@admin.com' and transfer.type == 'BUY' %}
+      <p><strong>Type:</strong> Asset purchase</p>
+    {% elif transfer.source.user.email == 'admin@admin.com' and transfer.type == 'SELL' %}
+      <p><strong>Type:</strong> Asset sale</p>
+    {% elif transfer.source == transfer.destination %}
+      <p><strong>Type:</strong> Self-transfer (e.g. to external card)</p>
+    {% elif transfer.source.user.email == 'admin@admin.com' %}
+      <p><strong>Type:</strong> Add funds </p>
+    {% elif transfer.source.user == request.user and transfer.destination.user != request.user %}
+      <p><strong>Type:</strong> Transfer funds to another user </p>
+    {% elif transfer.destination.user == request.user and transfer.source.user != request.user %}
+      <p><strong>Type:</strong> Received transfer from another user</p>
+    {% else %}
+      <p><strong>Type:</strong> Other </p>
+    {% endif %}
+
     <p><strong>Date:</strong>
-      <span property="startDate" content="{{ transfer.datetime|date:'Y-m-d' }}">
-            {{ transfer.datetime|date:"F j, Y, H:i" }}
-      </span>
+      <meta property="startTime" content="{{ transfer.datetime|date:'Y-m-d\\TH:i:s' }}">
+      {{ transfer.datetime|date:"F j, Y, H:i" }}
     </p>
 
     <p><strong>From:</strong>
-      <span property="sender" typeof="Person">
+      <span property="agent" typeof="Person">
         <span property="name">
           {{ transfer.source.user.get_full_name|default:transfer.source.user.username|default:transfer.source.user.email }}
         </span>
@@ -32,14 +47,15 @@
 
     <p><strong>Amount:</strong>
       <span property="amount" typeof="MonetaryAmount">
-        <span property="value">{{ transfer.amount }}</span>
-        <span property="currency">EUR</span>
+        <meta property="currency" content="EUR">
+        <meta property="value" content="{{ transfer.amount }}">
+        {{ transfer.amount }} EUR
       </span>
     </p>
 
-  <p><strong>Description:</strong>
-    <span property="description">Transferencia realizada en la app XChange.</span>
-  </p>
+    <p><strong>Description:</strong>
+      <span property="description">Transfer</span>
+    </p>
 
   </div>
 </div>

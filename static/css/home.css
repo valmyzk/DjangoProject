@@ -99,3 +99,21 @@ body {
 footer {
     border-top: 1px solid #2a2f36;
 }
+
+/* Transiciones suaves y aspecto interactivo */
+.list-group-item a.list-group-item-action {
+    transition: all 0.2s ease;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    display: block;
+    cursor: pointer;
+}
+
+/* Efecto visual al pasar el ratón */
+a.list-group-item-action.bg-dark:hover {
+    background-color: #2a2f36 !important;
+    color: white !important;
+    transform: translateX(4px);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(240, 185, 11, 0.3); /* Luz dorada suave */
+}

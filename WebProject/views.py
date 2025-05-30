@@ -40,7 +40,7 @@ def buy(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = BuyAnAssetForm(request.user, request.POST)
         if form.is_valid():
-            transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price)
+            transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price, type='BUY')
             add_funds_to_holding(request.user, form.cleaned_data['asset'], form.cleaned_data['amount'])
             return redirect('/')
     else:
@@ -56,9 +56,7 @@ def sell(request):
             asset = form.asset_instance
             amount = form.cleaned_data['amount']
             total_price = form.price
-
-            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price)
-
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price, type='SELL')
             holding = Holding.objects.get(user=request.user, asset=asset)
             holding.amount -= amount
             if holding.amount == 0:
@@ -78,7 +76,7 @@ def add_funds(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = AddFundsForm(request.POST)
         if form.is_valid():
-            transfer_funds_internal(get_admin().wallet, request.user.wallet, form.cleaned_data['amount'])
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, form.cleaned_data['amount'], type='ADD_FUNDS')
             return redirect('/')
     else:
         form = AddFundsForm()
@@ -90,7 +88,7 @@ def transfer_funds(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = TransferFundsForm(request.user, request.POST)
         if form.is_valid():
-            transfer = transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'])
+            transfer = transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'],type='TRANSFER')
             return redirect('transfer_detail', pk=transfer.pk)
     else:
         form = TransferFundsForm(request.user)
