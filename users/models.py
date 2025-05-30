@@ -48,6 +48,7 @@ class User(AbstractUser):
     phone = models.CharField(_('phone number'), max_length=15, null=False)
     date_of_birth = models.DateField(_('date of birth'), null=False)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    avatar_path = models.CharField(max_length=255, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
