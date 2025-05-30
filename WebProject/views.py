@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
@@ -39,7 +40,7 @@ def buy(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = BuyAnAssetForm(request.user, request.POST)
         if form.is_valid():
-            transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price)
+            transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price, type='BUY')
             add_funds_to_holding(request.user, form.cleaned_data['asset'], form.cleaned_data['amount'])
             return redirect('/')
     else:
@@ -55,9 +56,7 @@ def sell(request):
             asset = form.asset_instance
             amount = form.cleaned_data['amount']
             total_price = form.price
-
-            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price)
-
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price, type='SELL')
             holding = Holding.objects.get(user=request.user, asset=asset)
             holding.amount -= amount
             if holding.amount == 0:
@@ -77,7 +76,7 @@ def add_funds(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = AddFundsForm(request.POST)
         if form.is_valid():
-            transfer_funds_internal(get_admin().wallet, request.user.wallet, form.cleaned_data['amount'])
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, form.cleaned_data['amount'], type='ADD_FUNDS')
             return redirect('/')
     else:
         form = AddFundsForm()
@@ -89,12 +88,22 @@ def transfer_funds(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = TransferFundsForm(request.user, request.POST)
         if form.is_valid():
-            # Form validation guarantees enough balance (ignoring TOCTOU...)
-            transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'])
-            return redirect('/')
+            transfer = transfer_funds_internal(request.user.wallet, form.wallet, form.cleaned_data['amount'],type='TRANSFER')
+            return redirect('transfer_detail', pk=transfer.pk)
     else:
         form = TransferFundsForm(request.user)
     return render(request, 'transactions/transfer_funds.html', {'form': form})
+
+
+@login_required
+def transfer_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    transfer = get_object_or_404(Transaction, pk=pk)
+
+    # Seguridad: solo permitir ver si es emisor o receptor
+    if transfer.source != request.user.wallet and transfer.destination != request.user.wallet:
+        return redirect('/')  # O muestra error 403
+
+    return render(request, 'transactions/transfer_detail.html', {'transfer': transfer})
 
 
 @login_required

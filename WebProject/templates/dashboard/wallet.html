@@ -2,6 +2,219 @@
 
 {% block title %}XChange - Dashboard{% endblock %}
 
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function () {
+    const canvas = document.getElementById('assetsChart');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    try {
+        // Fetch real portfolio data
+        const [holdingsResponse, portfolioHistoryResponse] = await Promise.all([
+            fetch('/api/holdings/'),
+            fetch('/api/portfolio-history/')
+    ]);
+
+        const holdings = await holdingsResponse.json();
+        const portfolioHistory = await portfolioHistoryResponse.json();
+
+        // Calculate current portfolio value
+        const currentValue = holdings.reduce((total, holding) => total + holding.value, 0);
+
+        // Update portfolio metrics in the UI
+        updatePortfolioMetrics(currentValue, portfolioHistory);
+
+        // Create gradient for the chart
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(250, 204, 21, 0.2)');
+        gradient.addColorStop(1, 'rgba(250, 204, 21, 0)');
+
+        // Create the line chart with real data
+        const portfolioChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: portfolioHistory.labels || ['Start', 'Today'],
+                datasets: [{
+                    label: 'Portfolio Value (€)',
+                    data: portfolioHistory.values || [currentValue * 0.8, currentValue], // Fallback if no history
+                    fill: true,
+                    borderColor: '#facc15',
+                    backgroundColor: gradient,
+                    tension: 0.4,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#facc15',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            color: '#ccc',
+                            callback: function(value) {
+                                return '€' + value.toLocaleString('en-US', {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 0
+                                });
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ccc'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: '#facc15',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return 'Portfolio: €' + context.parsed.y.toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'nearest'
+                }
+            }
+        });
+
+        // Store chart globally for updates
+        window.portfolioChart = portfolioChart;
+
+    } catch (error) {
+        console.error('Error fetching portfolio data:', error);
+
+        // Fallback chart with placeholder
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(250, 204, 21, 0.2)');
+        gradient.addColorStop(1, 'rgba(250, 204, 21, 0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['No Data Available'],
+                datasets: [{
+                    label: 'Portfolio Value (€)',
+                    data: [0],
+                    fill: true,
+                    borderColor: '#facc15',
+                    backgroundColor: gradient,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#ccc' }
+                    },
+                    x: {
+                        ticks: { color: '#ccc' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff' }
+                    }
+                }
+            }
+        });
+    }
+});
+
+// Function to update portfolio metrics
+function updatePortfolioMetrics(currentValue, portfolioHistory) {
+    const portfolioValueElement = document.getElementById('portfolio-value');
+    const portfolioChangeElement = document.getElementById('portfolio-change');
+    const portfolioPercentElement = document.getElementById('portfolio-percent');
+
+    if (portfolioValueElement) {
+        portfolioValueElement.textContent = '€' + currentValue.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    if (portfolioHistory && portfolioHistory.values && portfolioHistory.values.length > 1) {
+        const previousValue = portfolioHistory.values[portfolioHistory.values.length - 2];
+        const change = currentValue - previousValue;
+        const changePercent = ((change / previousValue) * 100);
+
+        if (portfolioChangeElement) {
+            portfolioChangeElement.textContent = (change >= 0 ? '+€' : '-€') + Math.abs(change).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            portfolioChangeElement.className = change >= 0 ? 'text-success' : 'text-danger';
+        }
+
+        if (portfolioPercentElement) {
+            portfolioPercentElement.textContent = (changePercent >= 0 ? '+' : '') + changePercent.toFixed(2) + '%';
+            portfolioPercentElement.className = changePercent >= 0 ? 'text-success' : 'text-danger';
+        }
+    }
+}
+
+// Function to update chart period (you can implement this)
+async function updateChartPeriod(period) {
+    try {
+        document.querySelectorAll('#period-buttons button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        const activeBtn = document.querySelector(`#period-buttons button[onclick*="${period}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        const response = await fetch(`/api/portfolio-history/?period=${period}`);
+        const data = await response.json();
+
+        if (window.portfolioChart) {
+            window.portfolioChart.data.labels = data.labels;
+            window.portfolioChart.data.datasets = data.datasets || [{
+                label: 'Portfolio Value (€)',
+                data: data.values
+            }];
+            window.portfolioChart.update();
+        }
+    } catch (error) {
+        console.error('Error updating chart:', error);
+    }
+}
+
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="container py-4">
     <div class="row g-4">
@@ -19,10 +232,99 @@
                             Wallet
                         </a>
                     </div>
-                    <p class="card-text text-secondary">Here you can see the evolution of your assets.</p>
+
+                    <!-- Portfolio Summary -->
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="card bg-secondary text-white">
+                                <div class="card-body text-center">
+                                    <h6 class="card-subtitle mb-2 text-light">Total Portfolio Value</h6>
+                                    <h3 class="card-title mb-1" id="portfolio-value">€0.00</h3>
+                                    <div>
+                                        <span id="portfolio-change" class="me-2">€0.00</span>
+                                        <span id="portfolio-percent">0.00%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Period Selector -->
+                    <!-- Time Period Selector -->
+                    <div class="mb-3">
+                        <div class="btn-group btn-group-sm" role="group" id="period-buttons">
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateChartPeriod('1D')">1D</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateChartPeriod('1W')">1W</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateChartPeriod('1M')">1M</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateChartPeriod('3M')">3M</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateChartPeriod('6M')">6M</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateChartPeriod('1Y')">1Y</button>
+                        </div>
+                    </div>
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">Portfolio Evolution</h5>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="assetsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Current Holdings Summary -->
+                    <div class="mt-4">
+                        <div class="card bg-secondary">
+                            <div class="card-body">
+                                <h6 class="card-title text-white">Current Holdings</h6>
+                                <div id="holdings-summary" class="text-light">
+                                    Loading holdings...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// Load holdings summary
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const response = await fetch('/api/holdings/');
+        const holdings = await response.json();
+
+        const holdingsSummary = document.getElementById('holdings-summary');
+        if (holdings && holdings.length > 0) {
+            const totalValue = holdings.reduce((sum, holding) => sum + holding.value, 0);
+
+            let summaryHtml = `<div class="row text-sm">`;
+            holdings.forEach(holding => {
+                const percentage = ((holding.value / totalValue) * 100).toFixed(1);
+                const changeClass = holding.asset.stock_change > 0 ? 'text-success' : 'text-danger';
+
+                summaryHtml += `
+                    <div class="col-md-6 mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>${holding.asset.symbol}</span>
+                            <span>
+                                <span class="${changeClass}">€${holding.value.toFixed(2)}</span>
+                                <small class="text-muted">(${percentage}%)</small>
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            summaryHtml += `</div>`;
+
+            holdingsSummary.innerHTML = summaryHtml;
+        } else {
+            holdingsSummary.innerHTML = '<p class="text-muted">No holdings found</p>';
+        }
+    } catch (error) {
+        console.error('Error loading holdings:', error);
+        document.getElementById('holdings-summary').innerHTML = '<p class="text-danger">Error loading holdings</p>';
+    }
+});
+</script>
 {% endblock %}

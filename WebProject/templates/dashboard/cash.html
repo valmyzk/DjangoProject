@@ -27,19 +27,19 @@
                     <ul class="list-group list-group-flush">
                         {% for transaction in transactions %}
                         <li class="list-group-item bg-dark text-white px-0">
-                            <div class="d-flex justify-content-between">
-                                {% if transaction.source == request.user.wallet %}
-                                {# The user is the sender #}
-                                <span>{{ transaction.destination.user.email }}</span>
-                                <span>{{ transaction.datetime|date:"d/m/Y" }}</span>
-                                <span>-{{ transaction.amount }}€</span>
-                                {% else %}
-                                {# The user is the receiver #}
-                                <span>{{ transaction.source.user.email }}</span>
-                                <span>{{ transaction.datetime|date:"d/m/Y" }}</span>
-                                <span>+{{ transaction.amount }}€</span>
-                                {% endif %}
-                            </div>
+                            <a href="{% url 'transfer_detail' transaction.id %}" class="text-decoration-none text-white d-block list-group-item-action bg-dark">
+                                <div class="d-flex justify-content-between">
+                                    {% if transaction.source == request.user.wallet %}
+                                    <span>{{ transaction.destination.user.email }}</span>
+                                    <span>{{ transaction.datetime|date:"d/m/Y" }}</span>
+                                    <span>-{{ transaction.amount }}€</span>
+                                    {% else %}
+                                    <span>{{ transaction.source.user.email }}</span>
+                                    <span>{{ transaction.datetime|date:"d/m/Y" }}</span>
+                                    <span>+{{ transaction.amount }}€</span>
+                                    {% endif %}
+                                </div>
+                            </a>
                         </li>
                         {% endfor %}
                     </ul>

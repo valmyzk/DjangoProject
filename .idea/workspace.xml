@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f0c515-de59-43e9-b2ba-3f97aa18864a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/WebProject/templates/transactions/transfer_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DjangoProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebProject/templates/dashboard/cash.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/dashboard/cash.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebProject/templates/dashboard/wallet.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/dashboard/wallet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebProject/templates/transactions/transfer_funds.html" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/templates/transactions/transfer_funds.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebProject/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WebProject/views.py" afterDir="false" />
@@ -23,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -44,8 +44,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/valmyzk/DjangoProject&quot;,
-    &quot;accountId&quot;: &quot;22ef6eba-0394-4a6b-b27b-b91c8cf52362&quot;
+    &quot;url&quot;: &quot;https://github.com/valmyzk/DjangoProject.git&quot;,
+    &quot;accountId&quot;: &quot;1b659551-68b7-402b-ad96-7014e6444896&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -58,23 +58,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Docker.Unnamed.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/finish-dashboard",
-    "last_opened_file_path": "/home/oleksandr/Desktop/udl_segon/web/DjangoProject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Docker.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;htmlRDF&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/oleksandr/Desktop/udl_segon/web/DjangoProject&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates" />
@@ -87,7 +87,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-a5bc9544c897-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.23654.177" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -105,10 +106,24 @@
       <workItem from="1744545253772" duration="13954000" />
       <workItem from="1747070200511" duration="253000" />
       <workItem from="1747070457076" duration="331000" />
+      <workItem from="1747724987999" duration="72000" />
+      <workItem from="1747990437468" duration="4773000" />
+      <workItem from="1747995375044" duration="1866000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

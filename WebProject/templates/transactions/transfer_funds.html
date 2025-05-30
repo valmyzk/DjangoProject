@@ -6,6 +6,7 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
         <h4 class="card-title text-center mb-4">Transfer Funds</h4>
+        <p class="text-center text-muted">From: {{ request.user.email }}</p>
         {% if form.non_field_errors %}
         <div class="alert alert-danger" role="alert">
             {% for error in form.non_field_errors %}
@@ -38,7 +39,7 @@
                     <span class="input-group-text bg-dark text-white border-secondary">€</span>
                 </div>
             </div>
-            <button class="btn btn-warning w-100 fw-semibold py-2" type="submit">Transfer</button>
+            <button class="btn btn-warning w-100 fw-semibold py-2" type="submit">Send Transfer</button>
         </form>
     </div>
 </div>

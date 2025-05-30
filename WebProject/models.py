@@ -21,14 +21,22 @@ class Wallet(models.Model):
 
 
 class Transaction(models.Model):
+    TYPE_CHOICES = [
+        ('TRANSFER', 'Transfer'),
+        ('ADD_FUNDS', 'Add Funds'),
+        ('BUY', 'Buy Asset'),
+        ('SELL', 'Sell Asset'),
+        ('SELF', 'Self Transfer'),
+    ]
+
     source = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_source')
     destination = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_destination')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     datetime = models.DateTimeField(auto_now_add=True, editable=False)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
 
     def __str__(self):
-        return f"Transaction from {self.source.user.email} to {self.destination.user.email} with amount {self.amount} on date: {self.datetime}"
-
+        return f"{self.type} from {self.source.user.email} to {self.destination.user.email} ({self.amount}€ on {self.datetime})"
 
 class Asset(models.Model):
     TYPES_OF_ASSETS_CHOICES = [
