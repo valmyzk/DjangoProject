@@ -25,8 +25,7 @@ class Transaction(models.Model):
         ('TRANSFER', 'Transfer'),
         ('ADD_FUNDS', 'Add Funds'),
         ('BUY', 'Buy Asset'),
-        ('SELL', 'Sell Asset'),
-        ('SELF', 'Self Transfer'),
+        ('SELL', 'Sell Asset')
     ]
 
     source = models.ForeignKey(Wallet, on_delete=models.CASCADE, related_name='transaction_source')
@@ -34,6 +33,16 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     datetime = models.DateTimeField(auto_now_add=True, editable=False)
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+
+    @property
+    def action_type(self) -> str:
+        return {
+            'TRANSFER': 'PayAction',
+            'ADD_FUNDS': 'PayAction',
+            'BUY': 'BuyAction',
+            'SELL': 'SellAction'
+        }[self.type]
+
 
     def __str__(self):
         return f"{self.type} from {self.source.user.email} to {self.destination.user.email} ({self.amount}€ on {self.datetime})"

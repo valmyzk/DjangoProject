@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import transfer_detail
+from .views import transaction_detail
 
 urlpatterns = [
     path('', views.root, name='root'),
@@ -13,6 +13,6 @@ urlpatterns = [
     path('funds/transfer/', views.transfer_funds, name='transfer_funds'),
     path('profile', views.my_profile, name='my_profile'),
     path('profile/edit', views.edit_profile, name='edit_profile'),
-    path('transfer/<int:pk>/', transfer_detail, name='transfer_detail'),
+    path('transfer/<int:pk>/', transaction_detail, name='transfer_detail'),
 
 ]
