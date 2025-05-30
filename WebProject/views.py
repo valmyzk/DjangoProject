@@ -1,14 +1,14 @@
 import logging
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
-from django.db.models import Q
 
 from .forms import EditProfileForm, AddFundsForm, TransferFundsForm, BuyAnAssetForm, SellAnAssetForm
-from .models import Transaction
-from .utils import transfer_funds_internal, get_admin
+from .models import Transaction, Holding
+from .utils import transfer_funds_internal, get_admin, add_funds_to_holding
 
 logger = logging.getLogger(__name__)
 
@@ -16,26 +16,59 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 def root(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return render(request, 'dashboard/wallet.html')
+        return cash(request)
     return render(request, 'landing.html')
 
 
 @login_required
+def wallet(request: HttpRequest) -> HttpResponse:
+    holdings = Holding.objects.filter(user=request.user).order_by('-amount')
+    return render(request, 'dashboard/wallet.html', {'holdings': holdings})
+
+
+@login_required
 def cash(request: HttpRequest) -> HttpResponse:
+    holdings = Holding.objects.filter(user=request.user).order_by('-amount')
     wallet = request.user.wallet
     transactions = Transaction.objects.filter(Q(source=wallet) | Q(destination=wallet)).order_by('-datetime')[:5]
-    return render(request, 'dashboard/cash.html', {'transactions': transactions})
+    return render(request, 'dashboard/cash.html', {'transactions': transactions, 'holdings': holdings})
 
 
 @login_required
 def buy(request: HttpRequest) -> HttpResponse:
-    form = BuyAnAssetForm()
+    if request.method == 'POST':
+        form = BuyAnAssetForm(request.user, request.POST)
+        if form.is_valid():
+            transfer_funds_internal(request.user.wallet, get_admin().wallet, form.price)
+            add_funds_to_holding(request.user, form.cleaned_data['asset'], form.cleaned_data['amount'])
+            return redirect('/')
+    else:
+        form = BuyAnAssetForm(request.user)
     return render(request, 'operations/buy.html', {'form': form})
 
 
 @login_required
-def sell(request: HttpRequest) -> HttpResponse:
-    form = SellAnAssetForm()
+def sell(request):
+    if request.method == 'POST':
+        form = SellAnAssetForm(request.user, request.POST)
+        if form.is_valid():
+            asset = form.asset_instance
+            amount = form.cleaned_data['amount']
+            total_price = form.price
+
+            transfer_funds_internal(get_admin().wallet, request.user.wallet, total_price)
+
+            holding = Holding.objects.get(user=request.user, asset=asset)
+            holding.amount -= amount
+            if holding.amount == 0:
+                holding.delete()
+            else:
+                holding.save()
+
+            return redirect('/')
+    else:
+        form = SellAnAssetForm(request.user)
+
     return render(request, 'operations/sell.html', {'form': form})
 
 

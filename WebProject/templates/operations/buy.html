@@ -6,24 +6,76 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;">
         <h4 class="card-title text-center mb-4">Buy an asset</h4>
-        {% if messages %}
-        <div id="messageBox">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+            <div>{{ error }}</div>
             {% endfor %}
         </div>
         {% endif %}
         <form method="POST">
             {% csrf_token %}
-            {% for field in form %}
             <div class="mb-3">
-                {{ field.errors }}
-                <label for="{{ field.auto_id }}" class="form-label">{{ field.label }}</label>
-                {{ field }}
-                {% endfor %}
+                <label class="form-label" for="{{ form.asset.auto_id }}">{{ form.asset.label }}</label>
+                <div class="input-group">
+                    {{ form.asset }}
+                    <span class="input-group-text bg-dark text-white border-secondary">🔍</span>
+                </div>
             </div>
-            <button type="submit" class="btn btn-warning w-100 fw-semibold py-2">Submit</button>
+            <div class="mb-3 d-none">
+                The current price of the asset is:
+                <span class="text-primary" id="id_price">Loading...</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="{{ form.amount.auto_id }}">{{ form.amount.label }}</label>
+                {{ form.amount }}
+            </div>
+            <div class="mb-3 d-none">
+                Total amount is:
+                <span class="text-primary" id="id_total">Loading...</span>
+            </div>
+            <button class="btn btn-warning w-100 fw-semibold py-2" type="submit">Submit</button>
         </form>
     </div>
 </div>
+{% endblock %}
+{% block head %}
+<link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<script type="module">
+    const fetchData = async () => {
+        const assetData = await fetch('/api/assets').then(response => response.json());
+        return assetData.map(({name, symbol}) => ({'label': name, 'value': symbol}));
+    }
+
+    const $price = $('#id_price');
+    const $total = $('#id_total');
+
+    const updateValue = async ({label: name, value: symbol}) => {
+        const [currentPrice, ..._] = await fetch(`/api/asset/${symbol}/price`).then(response => response.json());
+        $price.text(`${currentPrice.toFixed(2)}€`).data('price', currentPrice).parent().removeClass('d-none');
+    }
+
+    const updateTotal = amount => {
+        if ($price.hasClass('d-none') || !$price.data('price')) return;
+        const total = $price.data('price') * amount;
+        $total.text(`${total.toFixed(2)}€`).parent().removeClass('d-none');
+    }
+
+    const data = await fetchData();
+
+    $(() => {
+        $('#id_asset').autocomplete({
+            minLength: 2,
+            source: data,
+            select: (_e, ui) => updateValue(ui.item)
+        });
+
+        $('#id_amount').on('change', function () {
+            updateTotal($(this).val())
+        })
+    })
+</script>
 {% endblock %}

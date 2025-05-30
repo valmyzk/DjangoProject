@@ -1,10 +1,11 @@
-from django.contrib.auth.base_user import BaseUserManager
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.utils.translation import gettext_lazy as _
 import uuid
-
 from datetime import date
+
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 
 class UserManager(BaseUserManager):
     """
@@ -23,7 +24,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
     def create_superuser(self, email, password, **extra_fields):
         """
         Create and save a SuperUser with the given email and password.
@@ -37,6 +37,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
         return self.create_user(email, password, phone='+0 000 000 000', date_of_birth=date(1970, 1, 1), **extra_fields)
+
 
 class User(AbstractUser):
     """

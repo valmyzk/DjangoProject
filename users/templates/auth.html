@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{% block title %}XChange{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link href="{% static 'css/auth.css' %}" rel="stylesheet">
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
+    <style>
+        .logo {
+            background-image: url("{% static 'img/favicon.ico' %}");
+        }
+    </style>
+
+</head>
+<body>
+<div class="container my-5">
+    <div class="login-container">
+        <div class="card shadow-sm">
+            <div class="card-body p-4 p-md-5">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-4">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="d-flex align-items-center mb-3 mb-md-0">
+                <i class="logo text-primary me-2" style="font-size: 1.5rem;"></i>
+                <span class="fw-bold">XChange</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+{% block footer %}
+{% endblock %}
+</body>
+</html>

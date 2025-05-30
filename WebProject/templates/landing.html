@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>XChange - Cryptocurrency Exchange</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
     <style>
         .logo {
             background-image: url("{% static 'img/favicon.ico' %}");
@@ -24,7 +24,7 @@
             <i class="logo text-primary me-2" style="font-size: 1.5rem;"></i>
             <span class="fw-bold">XChange</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -43,8 +43,8 @@
                 </li> -->
             </ul>
             <div class="d-flex">
-                <a href="{% url 'login' %}" class="btn me-2 text-light">Log In</a>
-                <a href="/users/signup" class="btn btn-primary">Sign Up</a>
+                <a class="btn me-2 text-light" href="{% url 'login' %}">Log In</a>
+                <a class="btn btn-warning" href="/users/signup">Sign Up</a>
             </div>
         </div>
     </div>
@@ -57,14 +57,14 @@
                 <h1 class="display-4 fw-bold mb-4">Trade Crypto with Confidence</h1>
                 <p class="lead mb-5">Fast, secure, and reliable cryptocurrency exchange for traders of all levels.</p>
                 <div class="d-grid gap-3 d-sm-flex">
-                    <a class="btn btn-primary btn-lg px-4 fw-bold" href="/users/signup">
+                    <a class="btn btn-warning btn-lg px-4 fw-bold" href="/users/signup">
                         Get Started <i class="bi bi-arrow-right ms-2"></i>
                     </a>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="/api/placeholder/600/400" class="img-fluid rounded shadow"
-                     alt="Cryptocurrency trading dashboard">
+                <img alt="Cryptocurrency trading dashboard" class="img-fluid rounded shadow"
+                     src="/api/placeholder/600/400">
             </div>
         </div>
     </div>
@@ -136,7 +136,7 @@
         <h2 class="display-5 fw-bold mb-4">Start Trading Today</h2>
         <p class="lead mb-5 mx-auto" style="max-width: 700px;">Join millions of traders and investors on the world's
             most trusted cryptocurrency exchange platform.</p>
-        <a class="btn btn-primary btn-lg px-5 fw-bold" href="/users/signup">Create Free Account</a>
+        <a class="btn btn-warning btn-lg px-5 fw-bold" href="/users/signup">Create Free Account</a>
     </div>
 </div>
 

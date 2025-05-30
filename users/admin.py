@@ -1,9 +1,10 @@
 import django.contrib.auth.admin
-from django.contrib import auth
 from django.contrib import admin
+from django.contrib import auth
 
 from .forms import UserChangeForm, UserCreationForm
 from .models import User
+
 
 class UserAdmin(auth.admin.UserAdmin):
     form = UserChangeForm

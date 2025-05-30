@@ -1,8 +1,10 @@
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
     path('', views.root, name='root'),
+    path('wallet/', views.wallet, name='wallet'),
     path('cash/', views.cash, name='cash'),
     path('assets/buy/', views.buy, name='buy'),
     path('assets/sell/', views.sell, name='sell'),

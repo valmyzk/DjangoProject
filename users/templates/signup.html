@@ -17,10 +17,10 @@ Sign up - XChange
         {% endfor %}
         {% csrf_token %}
         <div class="form-check">
-            <input type="checkbox" id="tos" class="form-check-input" required>
-            <label for="tos" class="form-check-label">I agree to the XChange Terms of Service.</label>
+            <input class="form-check-input" id="tos" required type="checkbox">
+            <label class="form-check-label" for="tos">I agree to the XChange Terms of Service.</label>
         </div>
-        <button type="submit" class="btn btn-primary w-100 py-2 mt-4">Sign up</button>
+        <button class="btn btn-warning w-100 py-2 mt-4" type="submit">Sign up</button>
     </form>
 </div>
 {% endblock %}
