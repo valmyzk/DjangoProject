@@ -96,14 +96,14 @@ def transfer_funds(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-def transfer_detail(request: HttpRequest, pk: int) -> HttpResponse:
-    transfer = get_object_or_404(Transaction, pk=pk)
+def transaction_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    transaction = get_object_or_404(Transaction, pk=pk)
 
     # Seguridad: solo permitir ver si es emisor o receptor
-    if transfer.source != request.user.wallet and transfer.destination != request.user.wallet:
+    if transaction.source != request.user.wallet and transaction.destination != request.user.wallet:
         return redirect('/')  # O muestra error 403
 
-    return render(request, 'transactions/transfer_detail.html', {'transfer': transfer})
+    return render(request, 'transactions/transaction_detail.html', {'transaction': transaction})
 
 
 @login_required

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}XChange - Transaction Detail{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4 text-white" style="max-width: 400px; width: 100%;" vocab="https://schema.org/" typeof="{{ transaction.action_type }}">
+        <h4 class="card-title text-center mb-4">Transfer Detail</h4>
+        {% if transaction.type == 'TRANSFER' %}
+        <p><strong>Type:</strong> Transfer funds to another user </p>
+        {% elif transaction.type == 'ADD_FUNDS' %}
+        <p><strong>Type:</strong> Add funds </p>
+        {% elif transaction.type == 'BUY' %}
+        <p><strong>Type:</strong> Asset purchase</p>
+        {% elif transaction.type == 'SELL' %}
+        <p><strong>Type:</strong> Asset sale</p>
+        {% endif %}
+        <p><strong>Date:</strong>
+            <meta property="startTime" content="{{ transaction.datetime|date:'Y-m-d\\TH:i:s' }}">
+            {{ transaction.datetime|date:"F j, Y, H:i" }}
+        </p>
+        <p>
+            <strong>From:</strong>
+            <span property="agent" typeof="Person">
+                <span property="name">{{ transaction.source.user.get_full_name|default:transaction.source.user.email }}</span>
+            </span>
+            {% if transaction.type == 'BUY' %}
+            <span property="seller" typeof="Organization">
+                    <meta property="name" content="XChange Brokers Corp">
+            </span>
+            {% endif %}
+        </p>
+        <p>
+            <strong>To:</strong>
+            <span property="agent" typeof="Person">
+                <span property="name">{{ transaction.destination.user.get_full_name|default:transaction.destination.user.email }}</span>
+            </span>
+            {% if transaction.type == 'TRANSFER' or transaction.type == 'ADD_FUNDS' %}
+            <span property="recipient" typeof="Person">
+                <meta property="name" content="{{ transaction.destination.user.get_full_name|default:transaction.destination.user.email }}">
+            </span>
+            {% elif transaction.type == 'SELL' %}
+            <span property="buyer" typeof="Person">
+                    <meta property="name" content="{{ transaction.destination.user.get_full_name|default:transaction.destination.user.email }}">
+            </span>
+            {% endif %}
+        </p>
+        <p>
+            <strong>Amount:</strong>
+            <span property="price">{{ transaction.amount }}</span>
+            <span> €</span>
+            <meta property="priceCurrency" content="EUR">
+        </p>
+    </div>
+</div>
+{% endblock %}
